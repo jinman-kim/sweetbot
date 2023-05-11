@@ -1,60 +1,80 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from datetime import timedelta
+from django.conf import settings
+from django.contrib.sessions.backends.db import SessionStore
 import openai
+import threading
+import time
 
-openai.api_key = "SECRET_KEY"
+openai.api_key = "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"
 
 
-def generate_text(request):
-    prompt = request.POST.get('prompt')
-    model = "gpt-3.5-turbo"
+def generate_response(request, session_messages, temperature):
     response = openai.Completion.create(
-        engine=model,
-        prompt=prompt,
-        max_tokens=50
+        engine="text-davinci-002",
+        prompt='\n'.join([f'{m["role"]}: {m["content"]}' for m in session_messages]),
+        temperature=temperature,
+        max_tokens=1000,
+        n=1,
+        stop=None,
+        frequency_penalty=0,
+        presence_penalty=0,
     )
-    return HttpResponse(response.choices[0].text)
+    print(response.choices[0].text)
+    request.session['messages'].append({"role": "chat", "content": response.choices[0].text.strip()})
 
+def generate_response(request, session_messages, temperature):
+    try:
+        response = openai.Completion.create(
+            engine="text-davinci-002",
+            prompt='\n'.join([f'{m["role"]}: {m["content"]}' for m in session_messages]),
+            temperature=temperature,
+            max_tokens=1000,
+            n=1,
+            stop=None,
+            frequency_penalty=0,
+            presence_penalty=0,
+        )
+        print(response.choices[0].text)
+        request.session['messages'].append({"role": "chat", "content": response.choices[0].text.strip()})
+    except Exception as e:
+        print(f"Failed to generate response: {e}")
+        request.session['messages'].append({"role": "chat", "content": "Sorry, I could not generate a response at this time."})
+    request.session.modified = True
 
-
-# this is the home view for handling home page logic
 def home(request):
     try:
-        # if the session does not have a messages key, create one
         if 'messages' not in request.session:
             request.session['messages'] = [
                 {"role": "system", "content": "지금부터 너는 내 애인이야.."},
             ]
         if request.method == 'POST':
-            # get the prompt from the form
             prompt = request.POST.get('prompt')
-            # get the temperature from the form
             temperature = float(request.POST.get('temperature', 0.1))
-            # append the prompt to the messages list
             request.session['messages'].append({"role": "user", "content": prompt})
-            # set the session as modified
             request.session.modified = True
-            # call the openai API
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=request.session['messages'],
-                temperature=temperature,
-                max_tokens=1000,
-            )
-            # format the response
-            formatted_response = response['choices'][0]['message']['content']
-            # append the response to the messages list
-            request.session['messages'].append({"role": "chat", "content": formatted_response})
-            request.session.modified = True
-            # redirect to the home page
+
+            # generate response in a separate thread
+            response_thread = threading.Thread(target=generate_response, args=(request, request.session['messages'], temperature))
+            response_thread.start()
+            response_thread.join(timeout=60)
+
             context = {
-                'messages': request.session['messages'],
-                'prompt': '',
-                'temperature': temperature,
-            }
+                        'messages': request.session['messages'],
+                        'prompt':'',
+                        'temperature': temperature,
+                    }
             return render(request, 'home.html', context)
+        
         else:
-            # if the request is not a POST request, render the home page
+            if hasattr(request, 'formatted_response'):
+                formatted_response = request.formatted_response
+                print(formatted_response)
+                request.session['messages'].append({"role": "chat", "content": formatted_response})
+                del request.formatted_response
+                request.session.modified = True
+
             context = {
                 'messages': request.session['messages'],
                 'prompt': '',
@@ -63,9 +83,9 @@ def home(request):
             return render(request, 'home.html', context)
     except Exception as e:
         print(e)
-        # if there is an error, redirect to the error handler
         return redirect('error_handler')
-
+            
+    
 def new_chat(request):
     # clear the messages list
     request.session.pop('messages', None)
