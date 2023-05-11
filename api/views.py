@@ -6,8 +6,19 @@ from django.contrib.sessions.backends.db import SessionStore
 import openai
 import threading
 import time
+import os, environ
 
-openai.api_key = "SECRET-KEY"
+from decouple import config
+
+# env = environ.Env(
+#     # set casting, default value
+#     DEBUG=(bool, False)
+# )
+# # reading .env file
+# environ.Env.read_env()
+
+# OPENAI_KEY = env('OPENAI_KEY')
+openai.api_key = config('OPENAI_API_KEY')
 
 
 def generate_response(request, session_messages, temperature):
