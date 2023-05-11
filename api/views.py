@@ -7,7 +7,7 @@ import openai
 import threading
 import time
 
-openai.api_key = "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"
+openai.api_key = "SECRET-KEY"
 
 
 def generate_response(request, session_messages, temperature):
