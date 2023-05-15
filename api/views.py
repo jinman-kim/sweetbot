@@ -45,13 +45,23 @@ def generate_response(request, session_messages, temperature):
             frequency_penalty=0,
             presence_penalty=0,
         )
-        print(response.choices[0].index)
-        # print(response.choices[0].text)
         # uuid : 답변의 id를 줌으로써 텍스트가 중복되어 나오는 경우 차단
-        request.session['messages'].append(
-            {"role": "chat", "content": response.choices[0].text.strip(), "id": str(uuid.uuid4())})
-        print(request.session['messages'])
-        print(len(request.session['messages']))
+
+        print('test_response:', response.choices[0].text, len(response.choices[0].text))
+        if 'chatbot:' in response.choices[0].text.strip():
+            request.session['messages'].append(
+                {"role": "chat", "content": response.choices[0].text.strip().split('chatbot:')[1], "id": str(uuid.uuid4())})
+            print('chatbot removed')
+        elif 'chat:' in response.choices[0].text.strip():
+            request.session['messages'].append(
+                {"role": "chat", "content": response.choices[0].text.strip().split('chat:')[1], "id": str(uuid.uuid4())})
+            print('chat removed')
+
+        else:
+            request.session['messages'].append(
+                {"role": "chat", "content": response.choices[0].text.strip(),
+                 "id": str(uuid.uuid4())})
+        print('test:',request.session['messages'][-1]['content'])
     except Exception as e:
         print(f"Failed to generate response: {e}")
         request.session['messages'].append(
@@ -63,7 +73,7 @@ def home(request):
     try:
         if 'messages' not in request.session:
             request.session['messages'] = [
-                {"role": "chat", "content": f"지금부터 너의 mbti는 etnp인 애인이야.."},
+                {"role": "chat", "content": f"지금부터 너는 내 개발 도우미야"},
             ]
         # 포스트 요청이 들어올 때 ( 사용자가 채팅 전송을 할 때 )
         if request.method == 'POST':
@@ -93,7 +103,7 @@ def home(request):
             if hasattr(request, 'formatted_response'):
                 formatted_response = request.formatted_response
                 print("formatted_response:", {formatted_response})
-                request.session['messages'].append({"role": "chat", "content": formatted_response})
+                request.session['messages'].append({"role": "user", "content": formatted_response})
                 del request.formatted_response
                 request.session.modified = True
 

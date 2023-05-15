@@ -13,9 +13,9 @@
               </div>
               <div class="chat-history mb-3">
                 {% for message in messages %}
-                  <div class="card mb-2 {% if message.role == 'assistant' %}bg-success text-white{% endif %}">
+                  <div class="card mb-2 {% if message.role == 'chat' %}bg-success text-white{% endif %}">
                     <div class="card-body p-2" style="background-color: #fbf9d1; color: rgb(111, 96, 96);">
-                      <strong>{{ message.role|title }}:</strong> {{ message.content|linebreaksbr }}
+                      <strong>{{ message.role}}:</strong> {{ message.content|linebreaksbr }}
                     </div>
                   </div>
                 {% endfor %}
