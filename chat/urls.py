@@ -1,7 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
+from api import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('api.urls')),
+    path('api/', include('api.urls')),
+    path('diary/',include('diary.urls')),
+    path('keywords/',include('diary.urls')),
+    path('love_profile/',include('diary.urls')),
+    path('', views.index, name='index'),
 ]
