@@ -37,6 +37,7 @@ def generate_response(request, session_messages, temperature):
     try:
         response = openai.Completion.create(
             engine="text-davinci-003",
+            temperature = temperature,
             prompt='\n'.join([f'{m["role"]}: {m["content"]}' for m in session_messages]),
             # prompt='\n'.join([f'{}'])
             max_tokens=1000,
@@ -45,9 +46,9 @@ def generate_response(request, session_messages, temperature):
             frequency_penalty=0,
             presence_penalty=0,
         )
+        
         # uuid : 답변의 id를 줌으로써 텍스트가 중복되어 나오는 경우 차단
-
-        print('test_response:', response.choices[0].text, len(response.choices[0].text))
+        print('generate_response:', response.choices[0].text, len(response.choices[0].text))
         if 'chatbot:' in response.choices[0].text.strip():
             request.session['messages'].append(
                 {"role": "chat", "content": response.choices[0].text.strip().split('chatbot:')[1], "id": str(uuid.uuid4())})
@@ -73,9 +74,14 @@ def home(request):
     try:
         if 'messages' not in request.session:
             request.session['messages'] = [
-                {"role": "chat", "content": f"지금부터 너는 내 개발 도우미야"},
+                {"role": "chat", "content": f"지금부터 너는 연애 챗봇 친구야"},
             ]
-        # 포스트 요청이 들어올 때 ( 사용자가 채팅 전송을 할 때 )
+        # 추가 설정 메시지를 display=False로 추가
+        if request.method == 'POST':
+            prompt = request.POST.get('prompt')
+            request.session['messages'].append({"role": "user", "content": "너는 MBTI에 대해 아주 잘 알고 있는 아주 친한 동갑내기 친구야. 너는 MBTI가 인 사람에게 맞춰서 상담해주고 있어. 너는 연애 상담을 해줄 때 친근한 말투로 대답을 해줘야해.", "display": False})
+
+        # 포스트 요청이 들어올 때 (사용자가 채팅 전송을 할 때)
         if request.method == 'POST':
             prompt = request.POST.get('prompt')
             temperature = float(request.POST.get('temperature', 0.1))
@@ -83,21 +89,32 @@ def home(request):
             request.session.modified = True
 
             # generate response in a separate thread
-            response_thread = threading.Thread(target
-                                               =generate_response,
-                                               args
-                                               =(request, request.session['messages'], temperature))
+            response_thread = threading.Thread(
+                target=generate_response,
+                args=(request, request.session['messages'], temperature)
+            )
             response_thread.start()
             response_thread.join(timeout=60)
+            
+            max_messages = 10  # 유지할 최대 메시지 수
+            if len(request.session['messages']) > max_messages:
+                request.session['messages'] = request.session['messages'][-max_messages:]
 
+
+            # 메시지 렌더링을 위한 처리
+            displayed_messages = [
+                message for message in request.session['messages'] if message.get('display', True)
+            ]
             context = {
-                'messages': request.session['messages'],
+                'messages': displayed_messages,
                 'prompt': '',
-                'temperature': temperature,
+                'temperature': 0.1,
             }
-            return render(request, 'home.html', context)
 
-        # GET 요청 들어올 때,
+            return render(request, 'home_test1.html', context)
+
+
+        # GET 요청 들어올 때
         else:
             # request 가 formatted_response를 갖고 있다면,
             if hasattr(request, 'formatted_response'):
@@ -107,15 +124,21 @@ def home(request):
                 del request.formatted_response
                 request.session.modified = True
 
+            # 메시지 렌더링을 위한 처리
+            displayed_messages = [
+                message for message in request.session['messages'] if message.get('display', True)
+            ]
             context = {
-                'messages': request.session['messages'],
+                'messages': displayed_messages,
                 'prompt': '',
                 'temperature': 0.1,
             }
-            return render(request, 'home.html', context)
+
+            return render(request, 'home_test1.html', context)
     except Exception as e:
         print(e)
         return redirect('error_handler')
+
 
 
 def new_chat(request):
@@ -127,3 +150,86 @@ def new_chat(request):
 # this is the view for handling errors
 def error_handler(request):
     return render(request, '404.html')
+
+
+def choose_mbti(request):
+    return render(request, 'choose_mbti.html')
+
+
+def mbti_chatbot(request):
+    try:
+        if 'messages' not in request.session:
+            request.session['messages'] = [
+                {"role": "chat", "content": f"지금부터 너는 연애 챗봇 친구야"},
+            ]
+        # 추가 설정 메시지를 display=False로 추가
+        if request.method == 'POST':
+            prompt = request.POST.get('prompt', '')
+            request.session['messages'].append({
+                "role": "user",
+                "content": f"너는 MBTI에 대해 아주 잘 알고 있는 아주 친한 동갑내기 친구야. 너는 MBTI가 {prompt}인 사람에게 맞춰서 상담해주고 있어. 너는 연애 상담을 해줄 때 친근한 말투로 대답을 해줘야해.",
+                "display": False
+            })
+            return redirect('mbti_chatbot', prompt=prompt)
+        
+        # 포스트 요청이 들어올 때 (사용자가 채팅 전송을 할 때)
+        if request.method == 'POST':
+            prompt = request.POST.get('prompt')
+            temperature = float(request.POST.get('temperature', 0.1))
+            request.session['messages'].append({"role": "user", "content": prompt})
+            request.session.modified = True
+
+            # generate response in a separate thread
+            response_thread = threading.Thread(
+                target=generate_response,
+                args=(request, request.session['messages'], temperature)
+            )
+            response_thread.start()
+            response_thread.join(timeout=60)
+            
+            max_messages = 10  # 유지할 최대 메시지 수
+            if len(request.session['messages']) > max_messages:
+                request.session['messages'] = request.session['messages'][-max_messages:]
+
+
+            # 메시지 렌더링을 위한 처리
+            displayed_messages = [
+                message for message in request.session['messages'] if message.get('display', True)
+            ]
+            context = {
+                'messages': displayed_messages,
+                'prompt': '',
+                'temperature': 0.1,
+            }
+
+            return render(request, 'home_test1.html', context)
+
+
+        # GET 요청 들어올 때
+        else:
+            # request 가 formatted_response를 갖고 있다면,
+            if hasattr(request, 'formatted_response'):
+                formatted_response = request.formatted_response
+                print("formatted_response:", {formatted_response})
+                request.session['messages'].append({"role": "user", "content": formatted_response})
+                del request.formatted_response
+                request.session.modified = True
+
+            # 메시지 렌더링을 위한 처리
+            displayed_messages = [
+                message for message in request.session['messages'] if message.get('display', True)
+            ]
+            context = {
+                'messages': displayed_messages,
+                'prompt': '',
+                'temperature': 0.1,
+            }
+
+            return render(request, 'home_test1.html', context)
+    except Exception as e:
+        print(e)
+        return redirect('error_handler')
+
+
+
+
