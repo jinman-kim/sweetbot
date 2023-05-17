@@ -62,7 +62,7 @@
         </div>
         <div style="background-color: white; width: 350px; height: 70px; border: 1px solid rgba(0, 0, 0, 0.18);">
             <div style="margin-top: 25px">
-                계정이 없으신가요? <a href="{% url 'join' %}" style="font-weight: bold; color: cornflowerblue; text-decoration: none; cursor: pointer">가입하기</a>
+                계정이 없으신가요? <a href="{% url 'user:join' %}" style="font-weight: bold; color: cornflowerblue; text-decoration: none; cursor: pointer">가입하기</a>
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@
         let password = $('#floatingPassword').val();
 
         $.ajax({
-            url: "login/",
+            url: "",
             data: {
                 email: email,
                 password: password
@@ -86,7 +86,7 @@
             method: "POST",
             dataType: "json",
             success: function (data){
-                location.replace('{% url "127.0.0.1:8000/" %}');
+                location.replace('/');
             },
             error:function (request, status, error){
                 let data = JSON.parse(request.responseText);

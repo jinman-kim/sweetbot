@@ -36,7 +36,7 @@ from chat.settings import MEDIA_ROOT
 #environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
-openai.api_key = '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'
+openai.api_key = 'SECRET_KEY'
 
 def index(request):
     return render(request, 'index.html')

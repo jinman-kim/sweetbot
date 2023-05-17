@@ -15,6 +15,7 @@ import time
 import os
 import uuid
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 # Create your views here.
 
@@ -22,14 +23,21 @@ from django.contrib.auth.decorators import login_required
 
 
 #diary 페이지
-#@login_required(login_url='member:login')
 class Main(APIView):
+    @method_decorator(login_required(login_url='user:login'))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
     def get(self, request):
         feed_list = Feed.objects.all().order_by('-id')
         return render(request, 'ourdiary/main.html', context=dict(feed_list=feed_list))
     
-#@login_required(login_url='member:login')
+
 class UploadFeed(APIView):
+    @method_decorator(login_required(login_url='user:login'))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
     def post(self, request):
         print("upload 실행")
         file = request.FILES['file']

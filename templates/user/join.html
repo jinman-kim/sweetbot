@@ -66,7 +66,7 @@
         </div>
         <div style="background-color: white; width: 350px; height: 70px; border: 1px solid rgba(0, 0, 0, 0.18);">
             <div style="margin-top: 25px">
-                계정이 있으신가요? <a href="{% url 'login' %}" style="font-weight: bold; color: cornflowerblue;text-decoration: none; cursor: pointer">가입하기</a>
+                계정이 있으신가요? <a href="{% url 'user:login' %}" style="font-weight: bold; color: cornflowerblue;text-decoration: none; cursor: pointer">가입하기</a>
             </div>
         </div>
     </div>
@@ -84,7 +84,7 @@
         console.log('이멜 :' + email + ', 이름 :'  + name + ', 사용자이름 :'  +  user_id + ', 비밀번호 :'  +  password);
 
         $.ajax({
-            url: "join/",
+            url: "",
             data: {
                 email: email,
                 password: password,
@@ -95,7 +95,7 @@
             dataType: "json",
             success: function (data){
                 alert(data.message);
-                location.replace('{% url "127.0.0.1:8000/user/login/" %}');
+                location.replace('{% url "user:login" %}');
             },
             error:function (request, status, error){
                 let data = JSON.parse(request.responseText);
