@@ -8,7 +8,7 @@ import threading
 import time
 import os, environ
 import uuid
-# from decouple import config
+# from decouple import chat
 # env = environ.Env(
 #     # set casting, default value
 #     DEBUG=(bool, False)

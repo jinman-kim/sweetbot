@@ -1,5 +1,5 @@
 """
-ASGI config for chat project.
+ASGI chat for chat project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
