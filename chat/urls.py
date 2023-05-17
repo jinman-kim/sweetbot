@@ -8,6 +8,6 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('diary/',include('diary.urls')),
     path('keywords/',include('diary.urls')),
-    path('member/',include('member.urls')),
+    path('user/', include('user.urls')),
     path('', views.index, name='index'),
 ]
