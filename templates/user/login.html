@@ -31,13 +31,13 @@
     }
 
 </style>
-<body style="background-color: #FAFAFA;height: 100%">
+<body style="background-color: #f30ce0a4;height: 100%">
 <div style="font-size: 14px;text-align: center;width: 100%;min-height: 100vh;display: flex; flex-direction: row; align-items: center; justify-content: center">
     <div>
-        <div class="mb-3" style="background-color: white; width: 350px; height: 380px; border: 1px solid rgba(0, 0, 0, 0.18);">
+        <div class="mb-3" style="background-color: rgba(49, 26, 26, 0); width: 350px; height: 380px; border: 1px solid rgba(0, 0, 0, 0.18);">
             <div style="display: flex;align-items: center;justify-content: center">
                 <img style="height: 50px; object-fit: contain; margin: 30px 0"
-                     src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png">
+                     src="/static/img/love.jpg">
             </div>
             <div class="form-floating mb-2 floating_form">
                 <input type="email" class="floating_input form-control" id="floatingEmail"
@@ -50,14 +50,6 @@
             </div>
             <div class="floating_form mb-3">
                 <button id="button_login" type="button" class="btn btn-primary" style="width: 100%"> 로그인</button>
-            </div>
-            <div class="mb-2" style="display: flex; align-items: center; justify-content: space-between">
-                <hr style="border:1px silver;margin-left: 30px;width: 100px">
-                또는
-                <hr style="border:1px silver;margin-right: 30px;width: 100px">
-            </div>
-            <div style="font-weight: bold; color: royalblue">
-                테스트로 로그인 (둘러보기)
             </div>
         </div>
         <div style="background-color: white; width: 350px; height: 70px; border: 1px solid rgba(0, 0, 0, 0.18);">
@@ -73,7 +65,7 @@
 
 <!-- Optional JavaScript; choose one of the two! -->
 <script>
-    $('#button_login').on('click', ()=>{
+    $('#button_login').on('click', () => {
         let email = $('#floatingEmail').val();
         let password = $('#floatingPassword').val();
 
@@ -85,17 +77,21 @@
             },
             method: "POST",
             dataType: "json",
-            success: function (data){
+            success: function (data) {
                 location.replace('/');
             },
-            error:function (request, status, error){
+            error: function (request, status, error) {
                 let data = JSON.parse(request.responseText);
                 console.log(data.message);
                 alert(data.message);
             }
+        }).done(function (data) {
+            // 응답 데이터 처리 코드 추가
+            alert(data.message); // 메시지 출력 예시
         });
     });
 </script>
+
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"

@@ -32,7 +32,7 @@ class Login(APIView):
 
         request.session['loginCheck'] = True
         request.session['email'] = user.email
-
+        
         return Response(status=200, data=dict(message='로그인에 성공했습니다.'))
 
 
