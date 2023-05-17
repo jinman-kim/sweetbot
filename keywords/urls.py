@@ -5,5 +5,5 @@ from . import views
 
 
 urlpatterns = [
-    path('',views.keywords,name='diary'),    
+    path('',views.wordcloud_view),    
 ]

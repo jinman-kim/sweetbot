@@ -2,42 +2,59 @@ from django.shortcuts import render
 from django.db import connection
 from collections import Counter
 from wordcloud import WordCloud
+from konlpy.tag import Okt
+from PIL import Image
+import numpy as np
+from io import BytesIO
+import matplotlib.pyplot as plt
+import base64
+import pymysql
+
 # Create your views here.
 
 def keywords(request):
     
     return render(request, 'keywords/key_main.html')
 
-
-
 def generate_wordcloud(text):
-    # 텍스트를 전처리하고 단어 빈도수를 계산하는 작업 수행
-    # ...
+    # 텍스트를 형태소로 분석하여 단어 추출
+    okt = Okt()
+    nouns = okt.nouns(text)
+    words = [n for n in nouns if len(n) > 1] # 단어의 길이가 1개인 것은 제외
 
-    wc = WordCloud(font_path='/path/to/font.ttf', width=400, height=400, scale=2.0, max_font_size=250)
-    frequencies = Counter(words)
-    wc.generate_from_frequencies(frequencies)
-
-    return wc.to_image()
-
-def wordcloud_view(request):
-    # 데이터베이스에서 텍스트 데이터 조회
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT text_field FROM your_table")
-        results = cursor.fetchall()
-    
-    texts = [result[0] for result in results]
-
-    # 텍스트 데이터를 합침 (예: 리스트의 문자열을 하나의 문자열로)
-    combined_text = ' '.join(texts)
+    count = Counter(words)
 
     # 워드클라우드 생성
-    image = generate_wordcloud(combined_text)
+    im = Image.open('keywords/image/다운로드.png')
+    mask_arr = np.array(im)
+    font_path = 'keywords/image/Font/malgunbd.ttf'
+    wordcloud = WordCloud(font_path=font_path, width=50,mask = mask_arr, height=50, scale=2.0, max_font_size=250,
+                background_color ='white').generate_from_frequencies(count)
 
-    # 웹페이지에 워드클라우드 이미지와 기타 정보 전달
-    context = {
-        'wordcloud_image': image,
-        # 추가적인 정보를 필요에 따라 전달할 수 있습니다.
-    }
+    # 이미지 데이터 생성
+    image_data = BytesIO()
+    wordcloud.to_image().save(image_data, format='PNG')
+    image_data.seek(0)
+    encoded_image = base64.b64encode(image_data.getvalue()).decode('utf-8')
 
-    return render(request, 'wordcloud.html', context)
+    return encoded_image
+
+def wordcloud_view(request):
+    # 텍스트 데이터 가져오기 (데이터베이스에서 가져오는 예시)
+    # 여기서는 임의의 텍스트 데이터를 사용합니다.
+    try:
+        con = pymysql.connect(host='52.78.176.120', user='root', password='encore',  
+                          port=3306, db='team2_mysql', charset='utf8')
+        cur = con.cursor()
+    except Exception as e:
+        print (e)
+    cur.execute("select * from api_feed")
+    rows = cur.fetchall()
+    text = ' '.join([i[1] for i in rows]).replace(",", " ")
+    # text = "한국어 자연어 처리를 위해 KoNLPy와 Okt를 사용합니다."
+
+    # 워드클라우드 생성 및 이미지 데이터 반환
+    image_data = generate_wordcloud(text)
+
+    # 이미지 데이터를 템플릿으로 전달하여 렌더링
+    return render(request, 'keywords/key_main.html', {'image_data': image_data})
