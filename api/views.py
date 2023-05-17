@@ -6,13 +6,14 @@ from django.contrib.sessions.backends.db import SessionStore
 import openai
 import threading
 import time
-import os, environ
+import os
 import uuid
 from api.models import Feed
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from uuid import uuid4
 from chat.settings import MEDIA_ROOT
+
 
 # from decouple import config
 # env = environ.Env(
@@ -29,14 +30,16 @@ from chat.settings import MEDIA_ROOT
 #)
 
 # Set the project base directory
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Take environment variables from .env file
 #environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
-openai.api_key = "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"
+openai.api_key = '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'
 
+def index(request):
+    return render(request, 'index.html')
 
 
 def generate_response(request, session_messages, temperature):
@@ -127,7 +130,7 @@ def home(request):
 def new_chat(request):
     # clear the messages list
     request.session.pop('messages', None)
-    return redirect('chat/home')
+    return redirect('chat/home.html')
 
 
 # this is the view for handling errors
@@ -135,31 +138,3 @@ def error_handler(request):
     return render(request, 'index/404.html')
 
 
-# 메인 사이트
-def index(request):
-    return render(request, 'index/index.html')
-
-
-#diary 페이지
-class Main(APIView):
-    def get(self, request):
-        feed_list = Feed.objects.all().order_by('-id')
-        return render(request, 'ourdiary/main.html', context=dict(feed_list=feed_list))
-    
-
-class UploadFeed(APIView):
-    def post(self, request):
-        file = request.FILES['file']
-        uuid_name = uuid4().hex
-        save_path = os.path.join(MEDIA_ROOT, uuid_name)
-        with open(save_path, 'wb+') as destination:
-            for chunk in file.chunks():
-                destination.write(chunk)
-        content = request.data.get('content')
-        image = uuid_name
-        profile_image = request.data.get('profile_image')
-        user_id = request.data.get('user_id')
-
-        Feed.objects.create(content=content, image=image, profile_image=profile_image, user_id=user_id, like_count=0)
-
-        return Response(status=200)

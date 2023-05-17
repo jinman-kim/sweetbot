@@ -245,34 +245,9 @@
                 </div>
                 <span class="feed_name_txt">{{ feed.user_id }}</span>
             </div>
-            <img class="feed_img" src="{{ feed.image }}">
-            <div class="feed_icon">
-                <div>
-                    <span class="material-icons-outlined">
-                        favorite_border
-                    </span>
-                    <span class="material-icons-outlined">
-                        mode_comment
-                    </span>
-                    <span class="material-icons-outlined">
-                        send
-                    </span>
-                </div>
-                <div>
-                    <span class="material-icons-outlined">
-                        turned_in_not
-                    </span>
-                </div>
-            </div>
-            <div class="feed_like">
-                <p class="feed_txt"> <b>좋아요 {{ feed.like_count }}개 </b></p>
-            </div>
+            <img class="feed_img" src="{{ "media/"|add:feed.image }}">
             <div class="feed_content">
                 <p class="feed_txt"> <b> {{ feed.user_id }} </b> {{feed.content}} </p>
-            </div>
-            <div class="feed_reply">
-                <span class="feed_txt"> <b> jibeen </b> 좀만 기다려 3년 뒤에 사줄게 </span>
-                <span class="feed_txt"> <b> Ohjune </b> 짱 멋지다~ </span>
             </div>
         </div>
         {% endfor %}
@@ -317,96 +292,7 @@
         </div>
     </div>
     <div class="right_body">
-        <div class="feed_name" style="justify-content: space-between">
-            <div style="display: flex; align-items: center; ">
-              <div class="big_profile_box">
-                <img class="profile_img"
-                     src="https://scontent-ssn1-1.xx.fbcdn.net/v/t1.6435-9/s1080x2048/165180104_277246477102900_6106347261862438192_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=730e14&_nc_ohc=1sN4d8i7rn8AX-7aKYN&_nc_ht=scontent-ssn1-1.xx&oh=5049b7cd176848e330b0f5ea95f28172&oe=615A08D1">
-              </div>
-              <div class="name_content">
-                <span class="feed_name_txt"> jin.99 </span>
-                <span class="name_content_txt"> Moon Kyujin</span>
-              </div>
-            </div>
-      
-            <a class="link_txt" >
-              전환
-            </a>
-          </div>
-      
-          <div class="recommend_box">
-            <span style="color: gray"> 회원님을 위한 추천</span>
-            <span style="font-size: 12px"> 모두 보기 </span>
-          </div>
-          <div>
-            <div class="feed_name" style="justify-content: space-between">
-              <div class="profile_box">
-                <img class="profile_img"
-                     src="https://i.pinimg.com/736x/93/a6/8b/93a68b57a54e4bdc73d43d1d049b94b3.jpg">
-              </div>
-              <div class="name_content">
-                <span class="feed_name_txt"> dation3388 </span>
-                <span class="name_content_txt"> Jinstargram 신규가입</span>
-              </div>
-              <a class="link_txt">
-                팔로우
-              </a>
-            </div>
-            <div class="feed_name" style="justify-content: space-between">
-              <div class="profile_box">
-                <img class="profile_img"
-                     src="http://file3.instiz.net/data/cached_img/upload/2021/01/27/18/2ce2f41f7e9f09c0acc77faac7452dbf.jpg">
-              </div>
-              <div class="name_content">
-                <span class="feed_name_txt"> gaoudi </span>
-                <span class="name_content_txt"> IU 외 5명이 팔로우</span>
-              </div>
-              <a class="link_txt">
-                팔로우
-              </a>
-            </div>
-            <div class="feed_name" style="justify-content: space-between">
-              <div class="profile_box">
-                <img class="profile_img"
-                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTiCVWdogd6Ocsm08kL8ph4sb1MN0AYEiSUQ&usqp=CAU">
-              </div>
-              <div class="name_content">
-                <span class="feed_name_txt"> CAU </span>
-                <span class="name_content_txt"> IU 외 5명이 팔로우</span>
-              </div>
-              <a class="link_txt">
-                팔로우
-              </a>
-            </div>
-            <div class="feed_name" style="justify-content: space-between">
-              <div class="profile_box">
-                <img class="profile_img"
-                     src="https://pbs.twimg.com/media/EhzH0_DU4AEZ9yr.jpg">
-              </div>
-              <div class="name_content">
-                <span class="feed_name_txt"> 123456789 </span>
-                <span class="name_content_txt"> 그냥 추천해봄 </span>
-              </div>
-              <a class="link_txt">
-                팔로우
-              </a>
-            </div>
-            <div class="feed_name" style="justify-content: space-between">
-              <div class="profile_box">
-                <img class="profile_img"
-                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHPNYM5RQgA2F7BtpBQ-OrNFKDXVDUpypRuw&usqp=CAU">
-              </div>
-              <div class="name_content">
-                <span class="feed_name_txt"> instiz </span>
-                <span class="name_content_txt"> 애도 유명해 </span>
-              </div>
-              <a class="link_txt">
-                팔로우
-              </a>
-            </div>
-          </div>
-          <div class="comment_box">
-          </div>
+        여기에 랭킹 넣을거임
     </div>
 </div>
 
