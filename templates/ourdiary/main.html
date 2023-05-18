@@ -48,6 +48,7 @@
 
     .feed_img {
         width: 100%;
+        height: 500px;
         object-fit: contain;
     }
 
@@ -67,9 +68,9 @@
 
 
     .feed_txt {
-        font-size: 14px;
+        font-size: 16px;
+        margin: 20px 15px 10px 15px;
     }
-
 
     .feed_icon {
         padding: 5px 5px 0px 5px;
@@ -261,7 +262,7 @@
                     </div>
                     <img class="feed_img" src="{{ "media/"|add:feed.image }}">
                     <div class="feed_content" style="color:rgb(134, 118, 99); font-family: 'SUITE-Regular';">
-                        <p class="feed_txt"> {{ feed.user_id }}&nbsp&nbsp {{ feed.content }}</p>
+                        <p class="feed_txt"> <b style="font-weight: bold ; color:rgb(66, 55, 55);">{{ feed.user_id }}&nbsp&nbsp</b> {{ feed.content }}</p>
                     </div>
                 </div>
             {% endfor %}
@@ -272,6 +273,10 @@
             <h3 style="align: center; width:200px; height: 30px; padding-top:7px; border-radius:30px; margin-bottom:20px; background-color:rgb(248, 222, 222); font-family: 'SUITE-Regular'; color:#ff656c;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp♥ LUV #hashtag ♥</h3>
         </div>
         <img src="/static/img/wordcloud.png" alt="wordcloud" style="width: 200px;" />
+        <br>
+        <h3>현재 인기 Chart</h3>
+        <!-- <img src="http://127.0.0.1:8000/keywords/pop/" alt="s" width="400" height="500"> -->
+        <iframe aligh="right" src="http://127.0.0.1:8000/keywords/pop/"  width="300px", height=auto;></iframe>
     </div>
 </div>
 

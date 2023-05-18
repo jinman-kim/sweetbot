@@ -192,7 +192,7 @@
     <img src="/static/img/-248.svg" alt="heart" style="width: 50px; margin-bottom: 20px;" />
     <nav>
         <button class="home" type="button" onclick="location.href='http://127.0.0.1:8000/'">
-            <div style="font-family: 'SUITE-Regular'; font-size:23px;">
+            <div style="font-family: 'SUITE-Regular'; font-size:20px;">
                 <div class="icon">
                     <svg class="house" viewBox="0 0 24 24">
                         <g class="outline">
@@ -214,7 +214,7 @@
             </div>
         </button>
         <button class="profile" type="button" onclick="location.href='http://127.0.0.1:8000/login/'">
-            <div style="font-family: 'SUITE-Regular'; font-size:23px;">
+            <div style="font-family: 'SUITE-Regular'; font-size:20px;">
                 <div class="icon">
                     <svg viewBox="0 0 24 24">
                         <path class="head" d="M16 7C16 9.76142 15.7614 11 12 11C8.23858 11 8 9.76142 8 7C8 4.23858 9.23858 2.25 12 2.25C14.7614 2.25 16 4.23858 16 7Z" />
@@ -225,7 +225,7 @@
             </div>
         </button>
         <button class="lists" type="button" onclick="location.href='http://127.0.0.1:8000/api/'">
-            <div style="font-family: 'SUITE-Regular'; font-size:23px;">
+            <div style="font-family: 'SUITE-Regular'; font-size:20px;">
                 <div class="icon">
                     <svg class="pencil" viewBox="0 0 8 22">
                         <path d="M1.34869 4.87898L6.65199 4.87898M6.65193 16.8942L4.00028 20.6065L1.34863 16.8942L1.34863 2.66652C1.34869 2.26878 1.50672 1.88734 1.78797 1.60609C2.06922 1.32484 2.45066 1.16681 2.84841 1.16675L5.15216 1.16675C5.54991 1.16681 5.93134 1.32484 6.21259 1.60609C6.49384 1.88734 6.65187 2.26878 6.65193 2.66652V16.8942Z" />
@@ -240,8 +240,8 @@
                 LUV:GPT
             </div>
         </button>
-        <button class="explore" type="button" onclick="location.href='http://127.0.0.1:8000/diary/'">
-            <div style="font-family: 'SUITE-Regular'; font-size: 23px;">
+        <!-- <button class="explore" type="button" onclick="location.href='http://127.0.0.1:8000/diary/'">
+            <div style="font-family: 'SUITE-Regular'; font-size: 20px;">
                 <div class="icon">
                     <svg viewBox="0 0 24 24">
                         <path class="outline" d="M20.1215 3.68027C20.2477 3.62291 20.3775 3.75271 20.3202 3.87889L15.4927 14.4992C15.2926 14.9394 14.9398 15.2923 14.4996 15.4924L3.87927 20.3198C3.7531 20.3771 3.6233 20.2473 3.68065 20.1212L8.50808 9.50082C8.70818 9.0606 9.06099 8.70779 9.5012 8.50769L20.1215 3.68027Z" />
@@ -250,9 +250,9 @@
                 </div>
                 LUV:#tag
             </div>
-        </button>
+        </button> -->
         <button class="messages" type="button" onclick="location.href='http://127.0.0.1:8000/diary/'">
-            <div style="font-family: 'SUITE-Regular'; font-size: 23px;">
+            <div style="font-family: 'SUITE-Regular'; font-size: 20px;">
                 <div class="icon">
                     <div class="top">
                         <svg class="default" viewBox="0 0 24 13">
@@ -277,20 +277,20 @@
         </div> -->
        
         <button id="add_feed" type="button" onclick="">
-            <h3 style="color: #f5979b; font-family: 'SUITE-Regular'; font-size: 20px;">
+            <h3 style="color: #faa8ac; font-family: 'SUITE-Regular'; font-size: 18px;">
                 <b style="margin-right: 5px;">글 작성하기</b>
                 <i class="fa-solid fa-pen-to-square fa-beat-fade fa-xl" style="color: #ffe893;" onclick=""></i>
             </h3>
         </button>
 	
 	{% if user.is_authenticated %}
-        	<!-- 로그인 상태일 때 표시할 버튼들 -->
-        	<a href="{% url 'user:logout' %}" class="nav-link">Logout</a>
-    	{% else %}
-       	 	<!-- 로그인 상태가 아닐 때 표시할 버튼들 -->
-        	<a href="{% url 'user:login' %}" class="nav-link">Login</a>
-    	{% endif %}
-    </nav>
+        <!-- 로그인 상태일 때 표시할 버튼들 -->
+        <a href="{% url 'user:logout' %}" class="nav-link" style="color: #faa8ac; font-family: 'SUITE-Regular'; font-size: 18px;">Logout</a>
+    {% else %}
+        <!-- 로그인 상태가 아닐 때 표시할 버튼들 -->
+        <a href="{% url 'user:login' %}" class="nav-link" style="color: #faa8ac; font-family: 'SUITE-Regular'; font-size: 18px;">Login</a>
+    {% endif %}
+    </nav>  
 </aside>
 
 
