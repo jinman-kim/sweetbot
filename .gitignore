@@ -1,10 +1,10 @@
 __pycache__
 .idea
-.myvenv
-myvenv
+.venv
+venv
 .vscode
-.env
-.env*
+src/.env
+src/.env
 dbvenv
-db.sqlite3
+src/db.sqlite3
 db/
