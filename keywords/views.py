@@ -44,7 +44,7 @@ def wordcloud_view(request):
     # 여기서는 임의의 텍스트 데이터를 사용합니다.
     try:
         con = pymysql.connect(host='52.78.176.120', user='root', password='encore',  
-                          port=3306, db='team2_mysql', charset='utf8')
+                          port=3306, db='gorogoro', charset='utf8')
         cur = con.cursor()
     except Exception as e:
         print (e)
