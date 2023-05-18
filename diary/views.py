@@ -54,4 +54,17 @@ class UploadFeed(APIView):
         Feed.objects.create(content=content, image=image, user_id=user_id)
 
         return Response(status=200)
+
+
+class DeleteFeed(APIView):
+    def delete(self, request, feed_id):
+        feed = get_object_or_404(Feed, id=feed_id)
+        print(type(feed.user_id))
+        print(type(request.user))
+        if feed.user_id != str(request.user):
+            return Response(status=403)  # Forbidden
+        else:
+            feed.delete()
+        return Response(status=204)  # No content
+    
     

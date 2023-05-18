@@ -17,4 +17,5 @@ class Feed(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
+        print("에러")
         return self.user.user_id
