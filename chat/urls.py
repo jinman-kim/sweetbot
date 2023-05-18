@@ -9,7 +9,6 @@ urlpatterns = [
     path('diary/',include('diary.urls')),
     path('keywords/',include('keywords.urls')),
     path('login/',include('user.urls')),
-
     path('', views.index, name='index'),
 ]
 

@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'chat.urls'
@@ -98,16 +98,7 @@ WSGI_APPLICATION = 'chat.wsgi.application'
 #    }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gorogoro',
-        'USER' : 'root',
-        'PASSWORD' : 'encore',
-        'HOST' : '52.78.176.120',
-        'PORT' : '3306'
-    }
-}
+
 
 # DATABASES = {
 #     'default': {

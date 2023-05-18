@@ -5,5 +5,6 @@ from . import views
 
 
 urlpatterns = [
-    path('',views.wordcloud_view),    
+    path('', views.keywords, name='wordcloud'),   
+    path('pop/',views.popular_keywords_view)  
 ]
