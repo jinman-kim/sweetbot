@@ -8,7 +8,6 @@ import threading
 import time
 import os
 import uuid
-from api.models import Feed
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from uuid import uuid4

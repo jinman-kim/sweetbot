@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('', Main.as_view(), name='diary'),
-    path('upload/', UploadFeed.as_view(), name='upload'), 
+    path('upload/', UploadFeed.as_view(), name='upload'),
 ]
 
 

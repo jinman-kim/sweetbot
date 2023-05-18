@@ -22,7 +22,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1']
 #environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 3rd
-    'api',
     'rest_framework',
     'diary',
     'keywords',
@@ -92,7 +91,7 @@ WSGI_APPLICATION = 'chat.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gorogoro',
+        'NAME': 'please',
         'USER' : 'root',
         'PASSWORD' : 'encore',
         'HOST' : '52.78.176.120',
