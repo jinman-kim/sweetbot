@@ -163,3 +163,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 AUTH_USER_MODEL = 'user.User'
+
+LOGIN_URL = '/login/'
+
+LOGOUT_REDIRECT_URL = '/'  # 로그아웃 이후 리디렉션할 URL 설정

@@ -182,7 +182,16 @@
         <span class="material-icons-outlined">favorite_border</span>
       </div>
     </div>
+    {% if user.is_authenticated %}
+        <!-- 로그인 상태일 때 표시할 버튼들 -->
+        <a href="{% url 'user:logout' %}" class="nav-link">Logout</a>
+    {% else %}
+        <!-- 로그인 상태가 아닐 때 표시할 버튼들 -->
+        <a href="{% url 'user:login' %}" class="nav-link">Login</a>
+    {% endif %}
 </nav>
+
+
 
 
 {% block content %}{% endblock %}

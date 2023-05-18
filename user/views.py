@@ -7,10 +7,11 @@ from rest_framework.views import APIView
 from .models import User
 from django.contrib.auth.hashers import make_password
 from chat.settings import MEDIA_ROOT
-
+from django.contrib.auth import authenticate, login
 
 class Login(APIView):
     def get(self, request):
+        user_list = User.objects.all().order_by('-id')
         return render(request, 'user/login.html')
 
     def post(self, request):
@@ -32,7 +33,9 @@ class Login(APIView):
 
         request.session['loginCheck'] = True
         request.session['email'] = user.email
+
         
+        login(request=request, user=user)
         return Response(status=200, data=dict(message='로그인에 성공했습니다.'))
 
 
@@ -57,3 +60,5 @@ class Join(APIView):
                             name=name)
 
         return Response(status=200, data=dict(message="회원가입 성공했습니다. 로그인 해주세요."))
+    
+

@@ -238,63 +238,26 @@
 <div class="main_body">
     <div class="left_body">
         {% for feed in feed_list %}
-        <div class="border feed_box">
-            <div class="feed_name">
-                <div class="profile_box">
-                    <img class="profile_img" src="{{ feed.profile_image }}">
+            <div class="border feed_box">
+                <div class="feed_name">
+                    <div class="profile_box">
+                        <img class="profile_img" src="{{ feed.author.thumbnail }}">
+                    </div>
+                    <span class="feed_name_txt">{{ feed.author.user_id }}</span>
                 </div>
-                <span class="feed_name_txt">{{ feed.user_id }}</span>
+                <img class="feed_img" src="{{ "media/"|add:feed.image }}">
+                <div class="feed_content">
+                    <p class="feed_txt"> <b>{{ feed.author.user_id }}</b> {{ feed.content }}</p>
+                </div>
             </div>
-            <img class="feed_img" src="{{ "media/"|add:feed.image }}">
-            <div class="feed_content">
-                <p class="feed_txt"> <b> {{ feed.user_id }} </b> {{feed.content}} </p>
-            </div>
-        </div>
         {% endfor %}
 
-        <div class="border feed_box">
-            <div class="feed_name">
-                <div class="profile_box">
-                    <img class="profile_img" src="/static/img/june.jpg">
-                </div>
-                <span class="feed_name_txt">OhJune</span>
-            </div>
-            <img class="feed_img" src="/static/img/june.jpg">
-            <div class="feed_icon">
-                <div>
-                    <span class="material-icons-outlined">
-                        favorite_border
-                    </span>
-                    <span class="material-icons-outlined">
-                        mode_comment
-                    </span>
-                    <span class="material-icons-outlined">
-                        send
-                    </span>
-                </div>
-                <div>
-                    <span class="material-icons-outlined">
-                        turned_in_not
-                    </span>
-                </div>
-            </div>
-            <div class="feed_like">
-                <p class="feed_txt"> <b>좋아요 20,230,516개</b></p>
-            </div>
-            <div class="feed_content">
-                <p class="feed_txt"> <b>OhJune</b>오늘 나 "오준" 탄생일.</p>
-            </div>
-            <div class="feed_reply">
-                <span class="feed_txt"> <b>jibeen</b>준이 오빠 생일 축하드려요~!</span>
-                <span class="feed_txt"> <b>heesu</b>형 생일 축하드려요 근데 제가 팔씨름 이겼는데 제가 형 아닌가요?</span>
-                <span class="feed_txt"> <b>jjh</b>제가 젤 생일 축하드립니다 형님 ㅎㅎ </span>
-            </div>
-        </div>
-    </div>
+
     <div class="right_body">
         여기에 랭킹 넣을거임
     </div>
 </div>
+
 
 <!-- 모달 이미지 부분-->
 <div id="modal_add_feed" class="modal modal_overlay">
@@ -394,7 +357,7 @@
         }
     };
 
-    function uploadFiles(e){
+    function uploadFiles(e) {
         e.stopPropagation();
         e.preventDefault();
         console.log(e.dataTransfer)
@@ -409,20 +372,27 @@
         }
 
         if (files[0].type.match(/image.*/)) {
-            $('#modal_add_feed_content').css({
-                display : 'flex'
-            });
             $('.modal_image_upload_content').css({
                 "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
                 "outline": "none",
                 "background-size": "contain",
-                "background-repeat" : "no-repeat",
-                "background-position" : "center"
+                "background-repeat": "no-repeat",
+                "background-position": "center"
+            });
+            $('#modal_add_feed_content').css({
+                display: 'flex'
             });
             $('#modal_add_feed').css({
                 display: 'none'
-            })
-        }else{
+            });
+        } else if (files.length === 0) { // 추가된 부분
+            $('#modal_add_feed_content').css({
+                display: 'flex'
+            });
+            $('#modal_add_feed').css({
+                display: 'none'
+            });
+        } else {
             alert('이미지가 아닙니다.');
             return;
         }
@@ -433,7 +403,6 @@
         const content = $('#input_content').val();
         const profile_image = $('#input_profile_image').attr('src');
         const user_id = $('#input_user_id').text();
-
         const file = files[0];
 
         let fd = new FormData();
