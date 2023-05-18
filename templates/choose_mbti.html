@@ -8,13 +8,25 @@
         <div class="card">
             <h1 class="card-header text-center" style="background-color: #FFFAA2; color: rgb(248, 105, 105);">연애를 도와주라..♥</h1>
             <div class="card-body">
-                <form method="post" action="{% url 'mbti_chatbot' %}">
+                <form method="post" action="{% url 'choose_mbti' %}">
                     {% csrf_token %}
-                    <div class="mb-2">
-                        <button type="submit" name="prompt" value="ISTJ" class="btn btn-primary mb-2 mr-2" style="background-color: rgb(248, 105, 105); border-color: coral;">ISTJ</button>
-                        <button type="submit" name="prompt" value="ISFJ" class="btn btn-primary mb-2 mr-2" style="background-color: rgb(248, 105, 105); border-color: coral;">ISFJ</button>
-                        <!-- 다른 버튼들도 동일하게 추가 -->
-                    </div>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="ISTJ">ISTJ</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="ISFJ">ISFJ</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="INFJ">INFJ</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="INTJ">INTJ</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="ISTP">ISTP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="ISFP">ISFP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="INFP">INFP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="INTP">INTP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="ESTP">ESTP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="ESFP">ESFP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="ENFP">ENFP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="ENTP">ENTP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="ESTJ">ESTJ</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="ESFJ">ESFJ</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="ENFJ">ENFJ</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="background-color: rgb(248, 105, 105); border-color: coral;" name="prompt" value="ENTJ">ENTJ</button>
+                    <!-- 다른 버튼들도 추가 -->
                 </form>
             </div>
         </div>

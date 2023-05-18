@@ -11,25 +11,25 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-#import environ
+import environ
 import os
-#env = environ.Env(
-#    DEBUG=(bool, False)
-#)
+
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 
 SESSION_COOKIE_AGE = 86400  # 1 day
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-#environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(cqf5uk7a1qzx$)htl5d85!20%#lk6-d7e*tp7-n!$^h59*03r'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -48,15 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 3rd
     'api',
-<<<<<<< HEAD
     'chat',
-=======
-    'diary',
-    'keyword',
-    'rest_framework',
-    'user',
-
->>>>>>> 0001885d2a98f2836ee22dc5e26525749296cf7a
 ]
 
 MIDDLEWARE = [
@@ -94,49 +86,16 @@ WSGI_APPLICATION = 'chat.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gorogoro',
-        'USER' : 'root',
-        'PASSWORD' : 'encore',
-        'HOST' : '52.78.176.120',
-        'PORT' : '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'pybo2',
-#         'USER' : 'root',
-#         'PASSWORD' : '1234',
-#         'HOST' : '127.0.0.1',
-#         'PORT' : '4000'
-#     }
-# }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gorogoro',
-        'USER' : 'root',
-        'PASSWORD' : 'encore',
-        'HOST' : '52.78.176.120',
-        'PORT' : '3306'
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -159,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'Asia/Seoul'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -169,27 +128,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
-STATIC_URL = '/static/'
-
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# JQuery에 적용한 부분, views.py에서 사용, media는 사용자가 올리는 파일들을 관리하는 곳
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-AUTH_USER_MODEL = 'user.User'
-
-LOGIN_URL = '/login/'
-
-LOGOUT_REDIRECT_URL = '/'  # 로그아웃 이후 리디렉션할 URL 설정
