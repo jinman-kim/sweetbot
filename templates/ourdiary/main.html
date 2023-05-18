@@ -237,23 +237,23 @@
 {% load static %}
 <div class="main_body">
     <div class="left_body">
-            {% for feed in feed_list %}
-                <div class="border feed_box">
-                    <div class="feed_name">
-                        <div class="profile_box">
-                            <img class="profile_img" src="/static/img/heart.png">
-                        </div>
-                        <span class="feed_name_txt">{{ feed.user_id }}</span>
-                        
-                        <!--button class="delete_feed_btn" data-feed-id="{{ feed.id }}">삭제</button-->
-                        <button class="delete_feed_btn btn btn-sm btn-outline-secondary" data-feed-id="{{ feed.id }}">삭제</button>
-                    </div>
-                    <img class="feed_img" src="{{ "media/"|add:feed.image }}">
-                    <div class="feed_content">
-                        <p class="feed_txt"> <b>{{ feed.user_id }}</b> {{ feed.content }}</p>
-                    </div>
+        {% for feed in feed_list %}
+        <div class="border feed_box">
+            <div class="feed_name">
+                <div class="profile_box">
+                    <img class="profile_img" src="/static/img/heart.png">
                 </div>
-            {% endfor %}
+                <span class="feed_name_txt">{{ feed.user_id }}</span>
+                {% if user.is_authenticated and user.user_id == feed.user_id %}
+                    <button class="delete_feed_btn btn btn-sm btn-outline-secondary" data-feed-id="{{ feed.id }}">삭제</button>
+                {% endif %}
+            </div>
+            <img class="feed_img" src="{{ "media/"|add:feed.image }}">
+            <div class="feed_content">
+                <p class="feed_txt"> <b>{{ feed.user_id }}</b> {{ feed.content }}</p>
+            </div>
+        </div>
+        {% endfor %}
 
 
     <div class="right_body">
@@ -276,7 +276,8 @@
         </div>
         <div class="modal_image_upload">
             <span style="text-align: center"> 사진을 여기에 끌어다 놓으세요. </span>
-
+            <input type="file" id="image_file_input" accept="image/*" style="display: none;">
+            <button id="select_image_button" class="btn btn-primary" style="width: 200px; margin-top: 10px;">사진 선택</button>
         </div>
     </div>
 </div>
@@ -348,6 +349,41 @@
         .on("dragover", dragOver)
         .on("dragleave", dragOver)
         .on("drop", uploadFiles);
+
+    // 이미지 선택 버튼 클릭 시 파일 선택 창 열기
+    const selectImageButton = document.getElementById("select_image_button");
+    selectImageButton.addEventListener("click", () => {
+        const imageFileInput = document.getElementById("image_file_input");
+        imageFileInput.click();
+    });
+
+    // 파일 선택 시 이미지 미리보기 업데이트
+    const imageFileInput = document.getElementById("image_file_input");
+    imageFileInput.addEventListener("change", () => {
+        const selectedFile = imageFileInput.files[0];
+        if (selectedFile && selectedFile.type.match(/image.*/)) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                $('.modal_image_upload_content').css({
+                    "background-image": "url(" + event.target.result + ")",
+                    "outline": "none",
+                    "background-size": "contain",
+                    "background-repeat": "no-repeat",
+                    "background-position": "center"
+                });
+                $('#modal_add_feed_content').css({
+                    display: 'flex'
+                });
+                $('#modal_add_feed').css({
+                    display: 'none'
+                });
+            };
+            reader.readAsDataURL(selectedFile);
+        } else {
+            console.log('에러'),
+            alert('이미지가 아닙니다.');
+        }
+    });
     
     function dragOver(e){
         e.stopPropagation();
@@ -412,7 +448,8 @@
         const content = $('#input_content').val();
         const profile_image = $('#input_profile_image').attr('src');
         const name = $('#input_name').text();
-        const file = files[0];
+        const fileInput = document.getElementById("image_file_input");
+        const file = fileInput.files[0];
 
         let fd = new FormData();
 
@@ -424,25 +461,36 @@
 
         if(image.length <= 0)
         {
+            console.log('에러에러')
             alert("이미지가 비어있습니다.");
         }
         else if(content.length <= 0)
         {
+            console.log('에러에러')
             alert("설명을 입력하세요");
         }
         else if(profile_image.length <= 0)
         {
+            console.log('에러에러')
             alert("프로필 이미지가 비어있습니다.");
         }
         else if(name.length <= 0)
         {
+            console.log('에러에러')
             alert("사용자 id가 없습니다.");
+        }
+        else if(file === null)
+        {
+            console.log('에러에러')
+            alert("파일이 선택되지 않았습니다.");
+
         }
         else{
             writeFeed(fd);
-            console.log(files[0]);
+            console.log(file);
         }
     });
+
 
     function writeFeed(fd) {
         $.ajax({
@@ -503,7 +551,6 @@
         }
     });
 
-
     $(document).ready(function(){
         $(".delete").on('click', function() {
             if(confirm("정말로 삭제하시겠습니까?")) {
@@ -511,9 +558,6 @@
             }
         })
     });
-
-
-    
 
 </script>
 {% endblock %}
