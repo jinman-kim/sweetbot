@@ -237,8 +237,8 @@
 {% load static %}
 <div class="main_body">
     <div class="left_body">
-        {% for feed in feed_list %}
-            {% for user in user_list %}
+        {% for user in user_list %}
+            {% for feed in feed_list %}
                 <div class="border feed_box">
                     <div class="feed_name">
                         <div class="profile_box">
@@ -297,14 +297,12 @@
 
             </div>
             <div class="modal_content_write">
-                {% for user in user_list %}
                 <div class="feed_name">
                     <div class="profile_box">
-                        <img id="input_profile_image" class="profile_img" src="{{user.thumbnail}}">
+                        <img id="input_profile_image" class="profile_img" src="/static/img/heart.png">
                     </div>
-                    <span id="input_user_id" class="feed_name_txt"> {{user.user_id}} </span>
+                    <span id="input_user_id" class="feed_name_txt"> {{ user }} </span>
                 </div>
-                {% endfor %}
                 <div style="height: 440px">
                     <textarea id="input_content" class="feed_content_textarea form-control col-sm-5" rows="10" placeholder="설명을 입력하세요..."></textarea>
                 </div>
@@ -422,7 +420,6 @@
         fd.append('content', content);
         fd.append('profile_image', profile_image);
         fd.append('user_id', user_id);
-        /*fd.append('csrfmiddlewaretoken', "\{\{ csrf_token \}\}");*/
 
         if(image.length <= 0)
         {
