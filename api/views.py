@@ -6,8 +6,15 @@ from django.contrib.sessions.backends.db import SessionStore
 import openai
 import threading
 import time
-import os, environ
+import os
 import uuid
+from api.models import Feed
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from uuid import uuid4
+from chat.settings import MEDIA_ROOT
+
+
 # from decouple import config
 # env = environ.Env(
 #     # set casting, default value
@@ -17,20 +24,22 @@ import uuid
 # environ.Env.read_env()
 
 
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
+#env = environ.Env(
+#    # set casting, default value
+#    DEBUG=(bool, False)
+#)
 
 # Set the project base directory
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Take environment variables from .env file
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+#environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
-openai.api_key = os.environ.get('OPENAI_API_KEY')
+openai.api_key = 'SECRET_KEY'
 
+def index(request):
+    return render(request, 'index.html')
 
 
 def generate_response(request, session_messages, temperature):
@@ -110,6 +119,10 @@ def home(request):
                 'prompt': '',
                 'temperature': 0.1,
             }
+<<<<<<< HEAD
+=======
+            return render(request, 'chat/home.html', context)
+>>>>>>> 0001885d2a98f2836ee22dc5e26525749296cf7a
 
             return render(request, 'home_test1.html', context)
 
@@ -133,8 +146,12 @@ def home(request):
                 'prompt': '',
                 'temperature': 0.1,
             }
+<<<<<<< HEAD
 
             return render(request, 'home_test1.html', context)
+=======
+            return render(request, 'chat/home.html', context)
+>>>>>>> 0001885d2a98f2836ee22dc5e26525749296cf7a
     except Exception as e:
         print(e)
         return redirect('error_handler')
@@ -144,11 +161,12 @@ def home(request):
 def new_chat(request):
     # clear the messages list
     request.session.pop('messages', None)
-    return redirect('home')
+    return redirect('chat/home.html')
 
 
 # this is the view for handling errors
 def error_handler(request):
+<<<<<<< HEAD
     return render(request, '404.html')
 
 
@@ -231,5 +249,8 @@ def mbti_chatbot(request):
         return redirect('error_handler')
 
 
+=======
+    return render(request, 'index/404.html')
+>>>>>>> 0001885d2a98f2836ee22dc5e26525749296cf7a
 
 
