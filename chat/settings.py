@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "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"
+SECRET_KEY = 'django-insecure-(cqf5uk7a1qzx$)htl5d85!20%#lk6-d7e*tp7-n!$^h59*03r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'api',
     'diary',
     'keyword',
+    'rest_framework',
+    'user',
+
 ]
 
 MIDDLEWARE = [
@@ -87,12 +90,25 @@ WSGI_APPLICATION = 'chat.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 # DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'gorogoro',
+        'USER' : 'root',
+        'PASSWORD' : 'encore',
+        'HOST' : '52.78.176.120',
+        'PORT' : '3306'
+    }
+}
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -116,6 +132,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -155,9 +172,20 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# JQuery에 적용한 부분, views.py에서 사용, media는 사용자가 올리는 파일들을 관리하는 곳
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+AUTH_USER_MODEL = 'user.User'
+
+LOGIN_URL = '/login/'
+
+LOGOUT_REDIRECT_URL = '/'  # 로그아웃 이후 리디렉션할 URL 설정

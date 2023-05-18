@@ -8,6 +8,11 @@ import threading
 import time
 import os
 import uuid
+from api.models import Feed
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from uuid import uuid4
+from chat.settings import MEDIA_ROOT
 
 
 # from decouple import config
@@ -31,7 +36,7 @@ import uuid
 #environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
-openai.api_key = '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'
+openai.api_key = 'SECRET_KEY'
 
 def index(request):
     return render(request, 'index.html')
@@ -131,7 +136,5 @@ def new_chat(request):
 # this is the view for handling errors
 def error_handler(request):
     return render(request, 'index/404.html')
-
-
 
 
