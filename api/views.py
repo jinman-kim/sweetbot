@@ -35,39 +35,37 @@ openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 def generate_response(request, session_messages, temperature):
     try:
+        user_input = session_messages[-1]['content']  # 사용자의 입력 가져오기
         response = openai.Completion.create(
             engine="text-davinci-003",
-            prompt='\n'.join([f'{m["role"]}: {m["content"]}' for m in session_messages]),
-            # prompt='\n'.join([f'{}'])
+            prompt='\n'.join([f'{m["role"]}: {m["content"]}' for m in session_messages[:-1]]),  # 마지막 입력 제외
             max_tokens=1000,
             n=1,
             stop=None,
+            temperature=temperature,
             frequency_penalty=0,
             presence_penalty=0,
-            temperature=temperature
         )
-        # uuid : 답변의 id를 줌으로써 텍스트가 중복되어 나오는 경우 차단
 
-        print('test_response:', response.choices[0].text, len(response.choices[0].text))
-        if 'chatbot:' in response.choices[0].text.strip():
-            request.session['messages'].append(
-                {"role": "chat", "content": response.choices[0].text.strip().split('chatbot:')[1], "id": str(uuid.uuid4())})
-            print('chatbot removed')
-        elif 'chat:' in response.choices[0].text.strip():
-            request.session['messages'].append(
-                {"role": "chat", "content": response.choices[0].text.strip().split('chat:')[1], "id": str(uuid.uuid4())})
-            print('chat removed')
-
+        generated_text = response.choices[0].text.strip()
+        if 'chatbot:' in generated_text:
+            response_text = generated_text.split('chatbot:')[1].strip()
+        elif 'chat:' in generated_text:
+            response_text = generated_text.split('chat:')[1].strip()
         else:
-            request.session['messages'].append(
-                {"role": "chat", "content": response.choices[0].text.strip(),
-                 "id": str(uuid.uuid4())})
-        print('test:',request.session['messages'][-1]['content'])
+            response_text = generated_text
+
+        request.session['messages'].append(
+            {"role": "chat", "content": response_text, "id": str(uuid.uuid4())})
+        print('Generated response:', response_text)
+
     except Exception as e:
         print(f"Failed to generate response: {e}")
         request.session['messages'].append(
             {"role": "chat", "content": "Sorry, I could not generate a response at this time."})
+    
     request.session.modified = True
+
 
     
 
