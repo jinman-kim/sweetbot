@@ -1,8 +1,6 @@
 {% extends "navbar.html" %}
 
-{% block title %}★우리만의 diary★{% endblock %}
-
-{% block font %}'Jua', sans-serif{% endblock %}
+{% block title %}Diary{% endblock %}
 
 {% block style %}
 
@@ -16,7 +14,7 @@
     .main_body {
         display: flex;
         justify-content: center;
-        padding-top: 50px;
+        padding-top: 5px;
         padding-left: 150px;
         background-color: #f7f7f7;
     }
@@ -243,6 +241,14 @@
 {% endblock %}
 
 
+{% block write %}
+<button id="add_feed" type="button" onclick="">
+    <h3 style="color: #cbc2c4; font-family: 'SUITE-Regular'; font-size: 18px;">
+        <b style="margin-right: 5px;">글 작성하기</b>
+        <i class="fa-solid fa-pen-to-square fa-beat-fade fa-xl" style="color: #bbb0b2;" onclick=""></i>
+    </h3>
+</button>
+{% endblock %}
 
 
 {% block content %}
@@ -270,13 +276,13 @@
 
     <div class="right_body" style="margin-left: 110px;">
         <div>
-            <h3 style="align: center; width:200px; height: 30px; padding-top:7px; border-radius:30px; margin-bottom:20px; background-color:rgb(248, 222, 222); font-family: 'SUITE-Regular'; color:#ff656c;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp♥ LUV #hashtag ♥</h3>
+            <h3 style="text-align: center; width:200px; height: 30px; padding-top:7px; border-radius:30px; margin-bottom:20px; background-color:rgb(248, 222, 222); font-family: 'SUITE-Regular'; color:#ff656c;">&nbsp&nbsp♥ LUV #hashtag ♥</h3>
         </div>
         <img src="/static/img/wordcloud.png" alt="wordcloud" style="width: 200px;" />
         <br>
-        <h3>현재 인기 Chart</h3>
+        <h3 style="text-align: center; width:200px; height: 30px; padding-top:7px; border-radius:30px; margin-bottom:20px; background-color:rgb(248, 222, 222); font-family: 'SUITE-Regular'; color:#ff656c;">♥ 현재 인기 Chart ♥</h3>
         <!-- <img src="http://127.0.0.1:8000/keywords/pop/" alt="s" width="400" height="500"> -->
-        <iframe aligh="right" src="http://127.0.0.1:8000/keywords/pop/"  width="300px", height=auto;></iframe>
+        <iframe aligh="right" src="http://127.0.0.1:8000/keywords/pop/" style="margin-top: 20px; width: 200px; height: 300px;" ></iframe>
     </div>
 </div>
 

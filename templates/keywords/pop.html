@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Popular Keywords</title>
+    <script>
+        function openNewTab(url) {
+            window.open(url, '_blank');
+        }
+    </script>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Keyword</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for keyword in popular_keywords %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="#" onclick="openNewTab('https://search.naver.com/search.naver?query={{ keyword.keyword }}')">{{ keyword.keyword }}</a></td>
+                <td>{{ keyword.count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

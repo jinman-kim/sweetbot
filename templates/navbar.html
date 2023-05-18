@@ -14,7 +14,7 @@
   <link
     href="https://fonts.googleapis.com/css?family=Material+Icons%7CMaterial+Icons+Outlined%7CMaterial+Icons+Two+Tone%7CMaterial+Icons+Round%7CMaterial+Icons+Sharp"
     rel="stylesheet">
-  <title>연애도우미 </title>
+    <title>Proj L.U.V | {% block title %}{% endblock %}</title>
 
   <!-- jquery 사용하기 위해 -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -24,6 +24,8 @@
 
   <!-- diary/main.html style-->
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@700&family=Gowun+Batang&family=Jua&display=swap');
+
     @font-face {
         font-family: 'SUITE-Regular';
         src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
@@ -192,7 +194,7 @@
     <img src="/static/img/-248.svg" alt="heart" style="width: 50px; margin-bottom: 20px;" />
     <nav>
         <button class="home" type="button" onclick="location.href='http://127.0.0.1:8000/'">
-            <div style="font-family: 'SUITE-Regular'; font-size:20px;">
+            <div style="font-family: 'SUITE-Regular'; font-size:18px;">
                 <div class="icon">
                     <svg class="house" viewBox="0 0 24 24">
                         <g class="outline">
@@ -214,7 +216,7 @@
             </div>
         </button>
         <button class="profile" type="button" onclick="location.href='http://127.0.0.1:8000/login/'">
-            <div style="font-family: 'SUITE-Regular'; font-size:20px;">
+            <div style="font-family: 'SUITE-Regular'; font-size:18px;">
                 <div class="icon">
                     <svg viewBox="0 0 24 24">
                         <path class="head" d="M16 7C16 9.76142 15.7614 11 12 11C8.23858 11 8 9.76142 8 7C8 4.23858 9.23858 2.25 12 2.25C14.7614 2.25 16 4.23858 16 7Z" />
@@ -225,7 +227,7 @@
             </div>
         </button>
         <button class="lists" type="button" onclick="location.href='http://127.0.0.1:8000/api/'">
-            <div style="font-family: 'SUITE-Regular'; font-size:20px;">
+            <div style="font-family: 'SUITE-Regular'; font-size:18px;">
                 <div class="icon">
                     <svg class="pencil" viewBox="0 0 8 22">
                         <path d="M1.34869 4.87898L6.65199 4.87898M6.65193 16.8942L4.00028 20.6065L1.34863 16.8942L1.34863 2.66652C1.34869 2.26878 1.50672 1.88734 1.78797 1.60609C2.06922 1.32484 2.45066 1.16681 2.84841 1.16675L5.15216 1.16675C5.54991 1.16681 5.93134 1.32484 6.21259 1.60609C6.49384 1.88734 6.65187 2.26878 6.65193 2.66652V16.8942Z" />
@@ -252,7 +254,7 @@
             </div>
         </button> -->
         <button class="messages" type="button" onclick="location.href='http://127.0.0.1:8000/diary/'">
-            <div style="font-family: 'SUITE-Regular'; font-size: 20px;">
+            <div style="font-family: 'SUITE-Regular'; font-size: 18px;">
                 <div class="icon">
                     <div class="top">
                         <svg class="default" viewBox="0 0 24 13">
@@ -275,27 +277,17 @@
         <!-- <div>
         <input class="form-control" style="width: 200px" type="search" placeholder="Search" aria-label="Search">
         </div> -->
-       
-        <button id="add_feed" type="button" onclick="">
-            <h3 style="color: #faa8ac; font-family: 'SUITE-Regular'; font-size: 18px;">
-                <b style="margin-right: 5px;">글 작성하기</b>
-                <i class="fa-solid fa-pen-to-square fa-beat-fade fa-xl" style="color: #ffe893;" onclick=""></i>
-            </h3>
-        </button>
+       {% block write %}{% endblock %}
 	
 	{% if user.is_authenticated %}
         <!-- 로그인 상태일 때 표시할 버튼들 -->
-        <a href="{% url 'user:logout' %}" class="nav-link" style="color: #faa8ac; font-family: 'SUITE-Regular'; font-size: 18px;">Logout</a>
+        <a href="{% url 'user:logout' %}" class="nav-link" style="color: #ffe06f; font-family: 'SUITE-Regular'; font-size: 18px;">Logout</a>
     {% else %}
         <!-- 로그인 상태가 아닐 때 표시할 버튼들 -->
-        <a href="{% url 'user:login' %}" class="nav-link" style="color: #faa8ac; font-family: 'SUITE-Regular'; font-size: 18px;">Login</a>
+        <a href="{% url 'user:login' %}" class="nav-link" style="color: #ffe06f; font-family: 'SUITE-Regular'; font-size: 18px;">Login</a>
     {% endif %}
     </nav>  
 </aside>
-
-
-
-
 
 {% block content %}{% endblock %}
 <script src='https://unpkg.co/gsap@3/dist/gsap.min.js'></script>
