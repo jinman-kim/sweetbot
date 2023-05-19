@@ -1,16 +1,22 @@
 {% extends "navbar.html" %}
 
-{% block title %}★우리만의 diary★{% endblock %}
-
-{% block font %}'Jua', sans-serif{% endblock %}
+{% block title %}Diary{% endblock %}
 
 {% block style %}
 
+    @font-face {
+        font-family: 'SUITE-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+    }
+    
     .main_body {
         display: flex;
         justify-content: center;
-        padding-top: 50px;
-        background-color: #FAFAFA;
+        padding-top: 5px;
+        padding-left: 150px;
+        background-color: #f7f7f7;
     }
 
     .left_body {
@@ -35,10 +41,12 @@
         margin: 10px;
         min-height: auto;
         padding-bottom: 10px;
+        border-radius: 15px;
     }
 
     .feed_img {
         width: 100%;
+        height: 500px;
         object-fit: contain;
     }
 
@@ -58,9 +66,9 @@
 
 
     .feed_txt {
-        font-size: 14px;
+        font-size: 16px;
+        margin: 20px 20px 20px 20px;
     }
-
 
     .feed_icon {
         padding: 5px 5px 0px 5px;
@@ -71,6 +79,8 @@
     span {
         padding-right: 5px;
     }
+
+  
 
     .feed_name {
         padding: 10px;
@@ -231,31 +241,51 @@
 {% endblock %}
 
 
+{% block write %}
+<button id="add_feed" type="button" onclick="">
+    <h3 style="color: #cbc2c4; font-family: 'SUITE-Regular'; font-size: 18px;">
+        <b style="margin-right: 5px;">글 작성하기</b>
+        <i class="fa-solid fa-pen-to-square fa-beat-fade fa-xl" style="color: #bbb0b2;" onclick=""></i>
+    </h3>
+</button>
+{% endblock %}
 
 
 {% block content %}
 {% load static %}
 <div class="main_body">
     <div class="left_body">
-        {% for feed in feed_list %}
-            <div class="border feed_box">
-                <div class="feed_name">
-                    <div class="profile_box">
-                        <img class="profile_img" src="{{ feed.author.thumbnail }}">
+            {% for feed in feed_list %}
+                <div class="border feed_box">
+                    <div class="feed_name">
+                        <div class="profile_box">
+                            <img class="profile_img" src="/static/img/heart.png">
+                        </div>
+                        <span class="feed_name_txt" style="color:rgb(134, 118, 99); font-family: 'SUITE-Regular';">{{ feed.user_id }}</span>
+                        {% if user.is_authenticated and user.user_id == feed.user_id %}
+                            <button class="delete_feed_btn btn btn-sm btn-outline-secondary" style="font-family: 'SUITE-Regular'; border-radius: 15px; padding-left: 6px; font-size:x-small;" data-feed-id="{{ feed.id }}">삭제</button>
+                        {% endif %}
                     </div>
-                    <span class="feed_name_txt">{{ feed.author.user_id }}</span>
+                    <img class="feed_img" src="{{ "media/"|add:feed.image }}">
+                        <div class="feed_content" style="color:rgb(134, 118, 99); font-family: 'SUITE-Regular';">
+                            <p class="feed_txt"> <b style="font-weight: bold ; color:rgb(66, 55, 55);">{{ feed.user_id }}&nbsp&nbsp</b><br> 
+                            <div class="feed_txt">
+                                {{ feed.content }}</p>
+                            </div>    
+                        </div>
                 </div>
-                <img class="feed_img" src="{{ "media/"|add:feed.image }}">
-                <div class="feed_content">
-                    <p class="feed_txt"> <b>{{ feed.author.user_id }}</b> {{ feed.content }}</p>
-                </div>
-            </div>
-        {% endfor %}
-
-
-    <div class="right_body">
-        여기에 랭킹 넣을거임
+            {% endfor %}
     </div>
+
+
+    <div class="right_body" style="margin-left: 110px;">
+        <div>
+            <h3 style="text-align: center; width:200px; height: 30px; padding-top:7px; border-radius:30px; margin-bottom:20px; background-color:rgb(248, 222, 222); font-family: 'SUITE-Regular'; color:#ff656c;">&nbsp&nbsp♥ LUV #hashtag ♥</h3>
+        </div>
+        <img src="/static/img/wordcloud.png" alt="wordcloud" style="width: 200px;" />
+        <br>
+        <h3 style="text-align: center; width:200px; height: 30px; padding-top:7px; border-radius:30px; margin-bottom:20px; background-color:rgb(248, 222, 222); font-family: 'SUITE-Regular'; color:#ff656c;">♥ 현재 인기 Chart ♥</h3>
+        <iframe aligh="right" src="http://127.0.0.1:8000/keywords/pop/" margin-top= 20px, width= 200px, height= 300px ></iframe>
 </div>
 
 
@@ -273,7 +303,8 @@
         </div>
         <div class="modal_image_upload">
             <span style="text-align: center"> 사진을 여기에 끌어다 놓으세요. </span>
-
+            <input type="file" id="image_file_input" accept="image/*" style="display: none;">
+            <button id="select_image_button" class="btn btn-primary" style="width: 200px; margin-top: 10px;">사진 선택</button>
         </div>
     </div>
 </div>
@@ -297,9 +328,9 @@
             <div class="modal_content_write">
                 <div class="feed_name">
                     <div class="profile_box">
-                        <img id="input_profile_image" class="profile_img" src="https://scontent-ssn1-1.xx.fbcdn.net/v/t1.6435-9/s1080x2048/165180104_277246477102900_6106347261862438192_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=730e14&_nc_ohc=1sN4d8i7rn8AX-7aKYN&_nc_ht=scontent-ssn1-1.xx&oh=5049b7cd176848e330b0f5ea95f28172&oe=615A08D1">
+                        <img id="input_profile_image" class="profile_img" src="/static/img/heart.png">
                     </div>
-                    <span id="input_user_id" class="feed_name_txt"> jin.99 </span>
+                    <span id="input_name" class="feed_name_txt"> {{ user.name }} </span>
                 </div>
                 <div style="height: 440px">
                     <textarea id="input_content" class="feed_content_textarea form-control col-sm-5" rows="10" placeholder="설명을 입력하세요..."></textarea>
@@ -314,6 +345,12 @@
 </div>
 
 <script>
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": '{{csrf_token}}' }
+    });
+</script>
+
+<script>
     //모달 띄우기 코드
     const modal = document.getElementById("modal_add_feed");
     const buttonAddFeed = document.getElementById("add_feed");
@@ -326,13 +363,13 @@
     });
 
     //모달 닫기 코드
-    const buttonCloseModal =
+    const buttonCloseModal = 
     document.getElementById("close_modal");
     buttonCloseModal.addEventListener("click", e => {
         modal.style.display = "none";
         document.body.style.overflowY = "visible";
     });
-
+    
 <!-- jquery 부분(자바스크립트를 단축시킬 수 있음)-->
 
     $('.modal_image_upload')
@@ -340,6 +377,41 @@
         .on("dragleave", dragOver)
         .on("drop", uploadFiles);
 
+    // 이미지 선택 버튼 클릭 시 파일 선택 창 열기
+    const selectImageButton = document.getElementById("select_image_button");
+    selectImageButton.addEventListener("click", () => {
+        const imageFileInput = document.getElementById("image_file_input");
+        imageFileInput.click();
+    });
+
+    // 파일 선택 시 이미지 미리보기 업데이트
+    const imageFileInput = document.getElementById("image_file_input");
+    imageFileInput.addEventListener("change", () => {
+        const selectedFile = imageFileInput.files[0];
+        if (selectedFile && selectedFile.type.match(/image.*/)) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                $('.modal_image_upload_content').css({
+                    "background-image": "url(" + event.target.result + ")",
+                    "outline": "none",
+                    "background-size": "contain",
+                    "background-repeat": "no-repeat",
+                    "background-position": "center"
+                });
+                $('#modal_add_feed_content').css({
+                    display: 'flex'
+                });
+                $('#modal_add_feed').css({
+                    display: 'none'
+                });
+            };
+            reader.readAsDataURL(selectedFile);
+        } else {
+            console.log('에러'),
+            alert('이미지가 아닙니다.');
+        }
+    });
+    
     function dragOver(e){
         e.stopPropagation();
         e.preventDefault();
@@ -402,8 +474,9 @@
         const image = $('#input_image').css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
         const content = $('#input_content').val();
         const profile_image = $('#input_profile_image').attr('src');
-        const user_id = $('#input_user_id').text();
-        const file = files[0];
+        const name = $('#input_name').text();
+        const fileInput = document.getElementById("image_file_input");
+        const file = fileInput.files[0];
 
         let fd = new FormData();
 
@@ -411,29 +484,40 @@
         fd.append('image', image);
         fd.append('content', content);
         fd.append('profile_image', profile_image);
-        fd.append('user_id', user_id);
+        fd.append('name', name);
 
         if(image.length <= 0)
         {
+            console.log('에러에러')
             alert("이미지가 비어있습니다.");
         }
         else if(content.length <= 0)
         {
+            console.log('에러에러')
             alert("설명을 입력하세요");
         }
         else if(profile_image.length <= 0)
         {
+            console.log('에러에러')
             alert("프로필 이미지가 비어있습니다.");
         }
-        else if(user_id.length <= 0)
+        else if(name.length <= 0)
         {
+            console.log('에러에러')
             alert("사용자 id가 없습니다.");
+        }
+        else if(file === null)
+        {
+            console.log('에러에러')
+            alert("파일이 선택되지 않았습니다.");
+
         }
         else{
             writeFeed(fd);
-            console.log(files[0]);
+            console.log(file);
         }
     });
+
 
     function writeFeed(fd) {
         $.ajax({
@@ -447,6 +531,7 @@
             },
             error: function (request, status, error) {
                 console.log("에러");
+                console.log(error)
             },
             complete: function() {
                 console.log("무조건실행");
@@ -461,6 +546,45 @@
     modal.style.display = "none";
     document.body.style.overflowY = "visible";
     };
+
+    /*$('.delete_feed_btn').on('click', function() {
+        var feedId = $(this).data('feed-id');
+        $.ajax({
+            url: 'delete/' + feedId + '/',
+            type: 'DELETE',
+            success: function() {
+                $('#feed-' + feedId).remove();
+            },
+            error: function() {
+                console.log("error")
+            }
+        });
+    });*/
+
+    $('.delete_feed_btn').on('click', function() {
+        var feedId = $(this).data('feed-id');
+        if (confirm("정말로 삭제하시겠습니까?")) {
+            $.ajax({
+                url: 'delete/' + feedId + '/',
+                type: 'DELETE',
+                success: function() {
+                    // 삭제 성공 시 수행할 작업
+                    location.reload();  // 페이지 새로고침
+                },
+                error: function() {
+                    console.log("error")
+                }
+            });
+        }
+    });
+
+    $(document).ready(function(){
+        $(".delete").on('click', function() {
+            if(confirm("정말로 삭제하시겠습니까?")) {
+                location.href = $(this).data('uri');
+            }
+        })
+    });
 
 </script>
 {% endblock %}

@@ -17,7 +17,7 @@ import os
 env = environ.Env(
     DEBUG=(bool, False)
 )
-
+CSRF_TRUSTED_ORIGINS = ["http://52.78.148.129/"]
 SESSION_COOKIE_AGE = 86400  # 1 day
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -161,7 +161,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'css', 'css'),
+    os.path.join(BASE_DIR, 'static', 'css'),
 ]
 # JQuery에 적용한 부분, views.py에서 사용, media는 사용자가 올리는 파일들을 관리하는 곳
 

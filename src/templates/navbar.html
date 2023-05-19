@@ -1,22 +1,38 @@
 {% load static %}
-
-<!DOCTYPE html>
-<html lang="en" >
-
+<!doctype html>
+<html lang="ko">
 <head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta charset="UTF-8">
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-<title>지빈's 네비게이션바</title>
-<!-- 다운받은 메뉴바 CSS 적용 위해 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 
+  <!-- 요기에 구글 머티리얼 아이콘 -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Material+Icons%7CMaterial+Icons+Outlined%7CMaterial+Icons+Two+Tone%7CMaterial+Icons+Round%7CMaterial+Icons+Sharp"
+    rel="stylesheet">
+    <title>Proj L.U.V | {% block title %}{% endblock %}</title>
 
-<style>
+  <!-- jquery 사용하기 위해 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://kit.fontawesome.com/95c5c08857.js" crossorigin="anonymous"></script>
+
+  <!-- diary/main.html style-->
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@700&family=Gowun+Batang&family=Jua&display=swap');
+
+    @font-face {
+        font-family: 'SUITE-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+    }
+
     aside{
         position: fixed;
         left: 0;
@@ -24,18 +40,161 @@
         bottom: 0;
         top: 0;
     }
+    
+    .feed_box{
+        background-color: white;
+        width: 580px;
+        margin: 10px;
+        min-height: auto;
+        padding-bottom: 10px;
+    }
+
+    .main_body{
+        display: flex;
+        justify-content: center;
+        padding-top: 50px;
+        background-color: #f7f7f7;
+    }
+
+    .left_body{
+        {#background-color: skyblue;#} margin-right: 100px;
+        margin-right: 100px;
+        width: 500px;
+        height: 2000px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .right_body{
+        {#background-color: yellow;#} padding-top: 20px;
+        width: 300px;
+        height: 1000px;
+        left: 72%;
+        position: fixed;
+    }
+
+    .feed_img{
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .feed_content{
+        padding: 0px 10px;
+    }
+
+    .feed_like{
+        padding: 0px 10px;
+    }
+
+    .feed_reply{
+        padding: 0px 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .feed_txt{
+        font-size: 14px;
+    }
+
+    .feed_icon{
+        padding: 5px 5px 0px 5px;
+        display: flex;
+        justify-content: space-between;
+    }span{
+        padding-right: 5px;
+    }
+
+    .feed_name{
+        padding: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .feed_name_txt{
+        font-size: 14px;
+        padding: 0px 10px;
+        font-weight: bold;
+    }
+
+    .profile_box{
+        width: 40px;
+        height: 40px;
+        border-radius: 70%;
+        overflow: hidden;
+    }
+
+    .profile_img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .name_content{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .name_content_txt{
+        font-size: 12px;
+        padding: 0px 10px;
+        font-weight: bold;
+        color: lightgray;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 190px;
+    }
+
+    .big_profile_box{
+        width: 60px;
+        height: 60px;
+        border-radius: 70%;
+        overflow: hidden;
+    }
+
+    .link_txt{
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .recommend_box{
+        display: flex;
+        justify-content: space-between;
+        padding: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        align-items: center;
+    }
+
+    .comment_box{
+        margin: 40px 0 0 5px;
+        font-size: 12px;
+        font-weight: bold;
+        color: lightgray;
+        display: flex;
+        flex-direction: column;
+    }
+
+    @media screen and (max-width: 1280px) {
+        .right_body{
+            display: none;
+        }
+    }
     {% block style %}{% endblock %}
-</style>
+    </style>
 
 </head>
 
+
 <body>
-<!-- partial:index.partial.html -->
+<!-- 상단 내비게이션 바 -->
 <aside style="float: right;">
     <img src="/static/img/-248.svg" alt="heart" style="width: 50px; margin-bottom: 20px;" />
     <nav>
-        <button class="home">
-            <div>
+        <button class="home" type="button" onclick="location.href='http://127.0.0.1:8000/'">
+            <div style="font-family: 'SUITE-Regular'; font-size:18px;">
                 <div class="icon">
                     <svg class="house" viewBox="0 0 24 24">
                         <g class="outline">
@@ -56,8 +215,8 @@
                 Home
             </div>
         </button>
-        <button class="profile">
-            <div>
+        <button class="profile" type="button" onclick="location.href='http://127.0.0.1:8000/login/'">
+            <div style="font-family: 'SUITE-Regular'; font-size:18px;">
                 <div class="icon">
                     <svg viewBox="0 0 24 24">
                         <path class="head" d="M16 7C16 9.76142 15.7614 11 12 11C8.23858 11 8 9.76142 8 7C8 4.23858 9.23858 2.25 12 2.25C14.7614 2.25 16 4.23858 16 7Z" />
@@ -67,8 +226,8 @@
                 Profile
             </div>
         </button>
-        <button class="lists">
-            <div>
+        <button class="lists" type="button" onclick="location.href='http://127.0.0.1:8000/api/'">
+            <div style="font-family: 'SUITE-Regular'; font-size:18px;">
                 <div class="icon">
                     <svg class="pencil" viewBox="0 0 8 22">
                         <path d="M1.34869 4.87898L6.65199 4.87898M6.65193 16.8942L4.00028 20.6065L1.34863 16.8942L1.34863 2.66652C1.34869 2.26878 1.50672 1.88734 1.78797 1.60609C2.06922 1.32484 2.45066 1.16681 2.84841 1.16675L5.15216 1.16675C5.54991 1.16681 5.93134 1.32484 6.21259 1.60609C6.49384 1.88734 6.65187 2.26878 6.65193 2.66652V16.8942Z" />
@@ -83,8 +242,8 @@
                 LUV:GPT
             </div>
         </button>
-        <button class="explore">
-            <div>
+        <!-- <button class="explore" type="button" onclick="location.href='http://127.0.0.1:8000/diary/'">
+            <div style="font-family: 'SUITE-Regular'; font-size: 20px;">
                 <div class="icon">
                     <svg viewBox="0 0 24 24">
                         <path class="outline" d="M20.1215 3.68027C20.2477 3.62291 20.3775 3.75271 20.3202 3.87889L15.4927 14.4992C15.2926 14.9394 14.9398 15.2923 14.4996 15.4924L3.87927 20.3198C3.7531 20.3771 3.6233 20.2473 3.68065 20.1212L8.50808 9.50082C8.70818 9.0606 9.06099 8.70779 9.5012 8.50769L20.1215 3.68027Z" />
@@ -93,9 +252,9 @@
                 </div>
                 LUV:#tag
             </div>
-        </button>
-        <button class="messages">
-            <div>
+        </button> -->
+        <button class="messages" type="button" onclick="location.href='http://127.0.0.1:8000/diary/'">
+            <div style="font-family: 'SUITE-Regular'; font-size: 18px;">
                 <div class="icon">
                     <div class="top">
                         <svg class="default" viewBox="0 0 24 13">
@@ -114,20 +273,37 @@
                 LUV:Diary
             </div>
         </button>
-
-        <div>
+       
+        <!-- <div>
         <input class="form-control" style="width: 200px" type="search" placeholder="Search" aria-label="Search">
-
-        </div>
-        <i class="fa-solid fa-pen-line fa-bounce fa-sm" style="color: #ff384c;"></i>
-    </nav>
+        </div> -->
+       {% block write %}{% endblock %}
+	
+	{% if user.is_authenticated %}
+        <!-- 로그인 상태일 때 표시할 버튼들 -->
+        <a href="{% url 'user:logout' %}" class="nav-link" style="color: #ffe06f; font-family: 'SUITE-Regular'; font-size: 18px;">Logout</a>
+    {% else %}
+        <!-- 로그인 상태가 아닐 때 표시할 버튼들 -->
+        <a href="{% url 'user:login' %}" class="nav-link" style="color: #ffe06f; font-family: 'SUITE-Regular'; font-size: 18px;">Login</a>
+    {% endif %}
+    </nav>  
 </aside>
 
 {% block content %}{% endblock %}
-
-<!-- partial -->
 <script src='https://unpkg.co/gsap@3/dist/gsap.min.js'></script>
 <script src='https://assets.codepen.io/16327/MorphSVGPlugin3.min.js'></script><script  src="{% static 'css/script.js' %}"></script>
 
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+-->
 </body>
 </html>

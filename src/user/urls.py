@@ -9,3 +9,4 @@ urlpatterns = [
     path('join/', Join.as_view(), name='join'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
+

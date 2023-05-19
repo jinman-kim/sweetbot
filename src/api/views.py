@@ -8,7 +8,6 @@ import threading
 import time
 import os
 import uuid
-from api.models import Feed
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from uuid import uuid4
@@ -136,4 +135,5 @@ def new_chat(request):
 # this is the view for handling errors
 def error_handler(request):
     return render(request, 'index/404.html')
+
 

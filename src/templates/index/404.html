@@ -1,16 +1,11 @@
-{% extends "navbar.html" %}
-
-{% block title %}Main{% endblock %}
-
-{% block font %}'Dongle', sans-serif{% endblock %}
-
-{% block style %}{% endblock %}
-
+{% extends 'base.html' %}
+{% block title %} 404 {% endblock %}
 {% block content %}
-    <ul>
-        <li><a href="http://127.0.0.1:8000/home/" style="font-size: 30px;">chat</a></li><br>
-        <li><a href="http://127.0.0.1:8000/diary/" style="font-size: 30px;">diary</a></li><br>
-        <li><a href="http://127.0.0.1:8000/home/" style="font-size: 30px;">chat</a></li><br>
-
-    </ul>
+<div class="row justify-content-center my-4">
+    <div class="col-md-7 mt-4">
+        <h1>Page Not Found</h1>
+        <p>Make sure you are connected to the internet or your query is correct</p>
+        <a href="{% url 'index' %}" class="btn btn-secondary">Go Home</a>
+    </div>
+</div>
 {% endblock %}

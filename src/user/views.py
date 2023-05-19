@@ -9,7 +9,6 @@ from django.contrib.auth.hashers import make_password
 from chat.settings import MEDIA_ROOT
 from django.contrib.auth import authenticate, login
 
-
 class Login(APIView):
     def get(self, request):
         user_list = User.objects.all().order_by('-id')
@@ -35,6 +34,7 @@ class Login(APIView):
         request.session['loginCheck'] = True
         request.session['email'] = user.email
 
+        
         login(request=request, user=user)
         return Response(status=200, data=dict(message='로그인에 성공했습니다.'))
 
@@ -49,9 +49,9 @@ class Join(APIView):
         user_id = request.data.get('user_id')
         name = request.data.get('name')
 
-        if User.objects.filter(email=email).exists():
+        if User.objects.filter(email=email).exists() :
             return Response(status=500, data=dict(message='해당 이메일 주소가 존재합니다.'))
-        elif User.objects.filter(user_id=user_id).exists():
+        elif User.objects.filter(user_id=user_id).exists() :
             return Response(status=500, data=dict(message='사용자 이름 "' + user_id + '"이(가) 존재합니다.'))
 
         User.objects.create(password=make_password(password),
@@ -60,4 +60,5 @@ class Join(APIView):
                             name=name)
 
         return Response(status=200, data=dict(message="회원가입 성공했습니다. 로그인 해주세요."))
+    
 
