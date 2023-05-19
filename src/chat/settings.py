@@ -17,7 +17,7 @@ import os
 env = environ.Env(
     DEBUG=(bool, False)
 )
-CSRF_TRUSTED_ORIGINS = ["http://52.78.148.129/"]
+CSRF_TRUSTED_ORIGINS = ["http://43.200.142.3/api/", 'https://43.200.142.3/']
 SESSION_COOKIE_AGE = 86400  # 1 day
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -170,7 +170,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-
+AUTH_USER_MODEL = 'user.User'
 
 LOGIN_URL = '/login/'
 
