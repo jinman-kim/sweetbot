@@ -16,6 +16,13 @@
     <title>gorogoro login</title>
 </head>
 <style>
+    @font-face {
+        font-family: 'SUITE-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+    }
+
     .floating_form {
         margin: 0px 30px;
     }
@@ -23,6 +30,7 @@
     .floating_label {
         margin-top: -4px;
         font-size: 14px;
+        font-family: 'SUITE-Regular';
     }
 
     .floating_input {
@@ -32,16 +40,16 @@
     }
 
 </style>
-<body style="background-color: #FAFAFA;height: 100%">
+<body style="background-color: #faeced; height: 100%">
 <div style="font-size: 14px;text-align: center;width: 100%;min-height: 100vh;display: flex; flex-direction: row; align-items: center; justify-content: center">
     <div>
-        <div class="mb-3" style="background-color: white; width: 350px; height: 480px; border: 1px solid rgba(0, 0, 0, 0.18);">
+        <div class="mb-3" style="background-color: #ffd8da; width: 350px; height: 520px; border-radius: 20px; border: 1px solid rgba(255, 101, 108, 0.3);">
             <div style="display: flex;align-items: center;justify-content: center">
-                <img style="height: 50px; object-fit: contain; margin: 30px 0"
-                     src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png">
+                <img src="/static/img/-248.svg" alt="heart" style="width: 50px; margin: 20px 0px 0px 0px;" />
             </div>
-            <div style="font-size:17px; font-weight:600; line-height: 20px; text-align: center; color: rgba(142,142,142,1); margin: 0 40px 20px">
-                친구들의 사진과 동영상을 보려면 가입하세요.
+            <h3 style="margin-bottom: 15px; color:#ff656c; font-family: 'SUITE-Regular';"><b>Proj.L.U.V</b></h3>
+            <div style="margin-bottom: 20px; color:rgba(142, 142, 142, 1); font-family: 'SUITE-Regular';">
+                연인과의 달콤한 사랑을 나누려면<br>♥ 가입하세요 ♥
             </div>
             <div class="form-floating mb-2 floating_form">
                 <input type="email" class="floating_input form-control" id="floatingEmail"
@@ -61,12 +69,12 @@
                 <label for="floatingPassword" class="floating_label">비밀번호</label>
             </div>
             <div class="floating_form mb-3">
-                <button id="button_join"  type="button" class="btn btn-primary" style="width: 100%"> 가입 </button>
+                <button id="button_join"  type="button" class="btn btn-primary" style="width: 100%; background-color:#fb7c83; border-color:#f42d37; font-family: 'SUITE-Regular';"> 가입 </button>
             </div>
         </div>
-        <div style="background-color: white; width: 350px; height: 70px; border: 1px solid rgba(0, 0, 0, 0.18);">
-            <div style="margin-top: 25px">
-                계정이 있으신가요? <a href="{% url 'user:login' %}" style="font-weight: bold; color: cornflowerblue;text-decoration: none; cursor: pointer">가입하기</a>
+        <div style="background-color:#fec5c8; width: 350px; height: 70px; border: 1px solid rgba(255, 101, 108, 0.3); border-radius: 10px;">
+            <div style="margin-top: 25px; color: #8c7070; font-family: 'SUITE-Regular';">
+                계정이 있으신가요? <a href="{% url 'user:login' %}" style="font-weight: bold; color: #ff656c; text-decoration: none; cursor: pointer">로그인하기</a>
             </div>
         </div>
     </div>

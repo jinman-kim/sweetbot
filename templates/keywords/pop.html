@@ -2,6 +2,19 @@
 <html>
 <head>
     <title>Popular Keywords</title>
+    <style>
+        @font-face {
+            font-family: 'SUITE-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        body {
+            text-align: center; 
+            display: inline-block;
+        }
+    </style>
     <script>
         function openNewTab(url) {
             window.open(url, '_blank');
@@ -9,15 +22,15 @@
     </script>
 </head>
 <body>
-    <table>
+    <table style="margin: 0px 0px 20px 10px; color:rgb(249, 139, 139); font-family: 'SUITE-Regular';">
         <thead>
-            <tr>
+            <tr style="color:rgb(252, 68, 68); background-color:antiquewhite;">
                 <th>Rank</th>
                 <th>Keyword</th>
                 <th>Count</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody style="background-color:rgb(246, 241, 235);">
             {% for keyword in popular_keywords %}
             <tr>
                 <td>{{ forloop.counter }}</td>

@@ -1,0 +1,39 @@
+{% extends 'chat/base.html' %}
+{% block title %} Choose MBTI {% endblock %}
+{% block font %}'Dongle', sans-serif{% endblock %}
+{% block style %}
+button {
+    font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88);
+}
+{% endblock %}
+{% block content %}
+<div class="row justify-content-center my-4" style="width: 1200px;">
+    <div class="col-md-7 mt-4">
+        <div class="card">
+            <h1 class="card-header text-center" style="background-color: #FFFAA2; color: rgb(255, 130, 88);">♥나의 mbti를 입력하세요♥</h1>
+            <div class="card-body" style="text-align: center; display: inline-block;">
+                <form method="post" action="{% url 'choose_mbti' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="ISTJ">ISTJ</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="ISFJ">ISFJ</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="INFJ">INFJ</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="INTJ">INTJ</button><br>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="ISTP">ISTP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="ISFP">ISFP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="INFP">INFP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="INTP">INTP</button><br>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="ESTP">ESTP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="ESFP">ESFP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="ENFP">ENFP</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="ENTP">ENTP</button><br>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="ESTJ">ESTJ</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="ESFJ">ESFJ</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="ENFJ">ENFJ</button>
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 30px; border-radius: 10px; background-color: rgb(255, 130, 88);  border-color: rgb(255, 130, 88); border-radius:25px;" name="prompt" value="ENTJ">ENTJ</button>
+                    <!-- 다른 버튼들도 추가 -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

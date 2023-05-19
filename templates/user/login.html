@@ -97,6 +97,45 @@
             alert(data.message); // 메시지 출력 예시
         });
     });
+
+    // 폼 안에서 엔터 키를 눌렀을 때 동작할 함수
+    function handleEnterKeyPress(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            $('#button_login').click(); // "로그인" 버튼 클릭 이벤트 발생
+        }
+    }
+
+    $(document).ready(function() {
+        $('#floatingEmail').keypress(handleEnterKeyPress);
+        $('#floatingPassword').keypress(handleEnterKeyPress);
+
+        $('#button_login').on('click', function() {
+            let email = $('#floatingEmail').val();
+            let password = $('#floatingPassword').val();
+
+            $.ajax({
+                url: "",
+                data: {
+                    email: email,
+                    password: password
+                },
+                method: "POST",
+                dataType: "json",
+                success: function (data) {
+                    location.replace('/');
+                },
+                error: function (request, status, error) {
+                    let data = JSON.parse(request.responseText);
+                    console.log(data.message);
+                    alert(data.message);
+                }
+            }).done(function (data) {
+                // 응답 데이터 처리 코드 추가
+                alert(data.message); // 메시지 출력 예시
+            });
+        });
+    });
 </script>
 
 <!-- Option 1: Bootstrap Bundle with Popper -->

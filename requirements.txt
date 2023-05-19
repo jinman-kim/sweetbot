@@ -37,3 +37,6 @@ wcwidth==0.2.5
 zipp==3.2.0
 pymysql==1.0.2
 mysqlclient==2.1.0
+konlpy==0.6.0
+djangorestframework==3.14.0
+wordcloud==1.9.1.1

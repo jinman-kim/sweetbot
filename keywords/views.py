@@ -73,14 +73,22 @@ def popular_keywords_view(request):
         # {'keyword': 'JavaScript', 'count': 70},
         # {'keyword': 'HTML', 'count': 60},
         # {'keyword': 'CSS', 'count': 50},
-        {'keyword':'선물', 'count':613},
-        {'keyword':'오늘', 'count':2},
-        {'해산물', 2},
-        {'다음', 2},
-        {'안녕', 1},
-        {'장고', 1},
-        {'사랑', 1},
-        {'횟집', 1}
+        {'keyword':'사랑', 'count':20},
+        {'keyword':'생각', 'count':17},
+        {'keyword':'하루', 'count':14},
+        {'keyword':'당신', 'count':13},
+        {'keyword':'그대', 'count':13},
+        {'keyword':'요즘', 'count':12},
+        {'keyword':'종일', 'count':9},
+        {'keyword':'아침', 'count':9},
+        {'keyword':'사람', 'count':8},
+        {'keyword':'처럼', 'count':8},
+        # {'해산물', 2},
+        # {'다음', 2},
+        # {'안녕', 1},
+        # {'장고', 1},
+        # {'사랑', 1},
+        # {'횟집', 1}
     ]
 
     return render(request, 'keywords/pop.html', {'popular_keywords': popular_keywords})
