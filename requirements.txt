@@ -21,7 +21,6 @@ Markdown==3.2.2
 oauthlib==3.1.0
 parso==0.7.1
 pickleshare==0.7.5
-Pillow==7.2.0
 prompt-toolkit==3.0.7
 psycopg2==2.8.6
 Pygments==2.7.1
@@ -40,3 +39,4 @@ mysqlclient==2.1.0
 konlpy==0.6.0
 djangorestframework==3.14.0
 wordcloud==1.9.1.1
+openai==0.27.7

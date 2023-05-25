@@ -92,11 +92,11 @@ WSGI_APPLICATION = 'chat.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'please',
+        'NAME': 'sweetbot',
         'USER' : 'root',
-        'PASSWORD' : 'encore',
-        'HOST' : '52.78.176.120',
-        'PORT' : '3306'
+        'PASSWORD' : '1234',
+        'HOST' : '127.0.0.1',
+        'PORT' : '4000'
     }
 }
 
